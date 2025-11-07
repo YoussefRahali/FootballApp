@@ -31,7 +31,7 @@ public class MatchService {
     private final MatchRepository matchRepository;
     private final NotificationService notificationService;
     private final MongoTemplate mongoTemplate;
-    private final MatchProcessingService matchProcessingService;
+
 
     public Match createMatch(String team1Id, String team2Id, LocalDateTime date) {
         Match match = Match.builder()
@@ -109,66 +109,13 @@ public class MatchService {
         return matchRepository.save(match);
     }
 
-    public Match addEvent(String matchId, Match.Event event) {
-        Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found with id " + matchId));
-        event.setId(UUID.randomUUID().toString());
-        match.getEvents().add(event);
-
-        if (EventType.GOAL.name().equals(event.getType())) {
-            matchProcessingService.updateScore(matchId, event.getTeamId(), 1);
-            notificationService.sendNotification("Goal scored in match " + matchId + " by team " + event.getTeamId());
-        } else if (EventType.RED_CARD.name().equals(event.getType())) {
-            notificationService.sendNotification("Red card in match " + matchId);
-        }
-
-        return matchRepository.save(match);
-    }
-
-    public Match deleteEvent(String matchId, String eventId) {
-        Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found with id " + matchId));
-        Match.Event eventToRemove = match.getEvents().stream()
-                .filter(event -> Objects.equals(event.getId(), eventId))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id " + eventId));
-
-        if (EventType.GOAL.name().equals(eventToRemove.getType())) {
-            matchProcessingService.updateScore(matchId, eventToRemove.getTeamId(), -1);
-            notificationService.sendNotification("Goal cancelled in match " + matchId);
-        }
-
-        match.getEvents().remove(eventToRemove);
-        return matchRepository.save(match);
-    }
-
-    public Match updateEvent(String matchId, String eventId, Match.Event updatedEvent) {
-        Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found with id " + matchId));
-        Match.Event eventToUpdate = match.getEvents().stream()
-                .filter(event -> Objects.equals(event.getId(), eventId))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id " + eventId));
-
-        // Logic to recalculate score if a goal event is modified
-        if (EventType.GOAL.name().equals(eventToUpdate.getType()) && !EventType.GOAL.name().equals(updatedEvent.getType())) {
-            // Goal was removed
-            matchProcessingService.updateScore(matchId, eventToUpdate.getTeamId(), -1);
-        } else if (!EventType.GOAL.name().equals(eventToUpdate.getType()) && EventType.GOAL.name().equals(updatedEvent.getType())) {
-            // Goal was added
-            matchProcessingService.updateScore(matchId, updatedEvent.getTeamId(), 1);
-        } else if (EventType.GOAL.name().equals(eventToUpdate.getType()) && EventType.GOAL.name().equals(updatedEvent.getType()) && !eventToUpdate.getTeamId().equals(updatedEvent.getTeamId())) {
-            // Goal team changed
-            matchProcessingService.updateScore(matchId, eventToUpdate.getTeamId(), -1);
-            matchProcessingService.updateScore(matchId, updatedEvent.getTeamId(), 1);
-        }
 
 
-        eventToUpdate.setMinute(updatedEvent.getMinute());
-        eventToUpdate.setType(updatedEvent.getType());
-        eventToUpdate.setTeamId(updatedEvent.getTeamId());
-        eventToUpdate.setPlayerId(updatedEvent.getPlayerId());
-        eventToUpdate.setDescription(updatedEvent.getDescription());
 
-        return matchRepository.save(match);
-    }
+
+
+
+
 
     public Match addAdditionalTime(String matchId, int additionalTime) {
         Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found with id " + matchId));

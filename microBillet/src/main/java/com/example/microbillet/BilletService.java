@@ -2,17 +2,32 @@ package com.example.microbillet;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+
 public class BilletService {
   private final BilletRepository repository;
+  private final MatchFeignClient matchFeignClient;
 
+  public BilletService(BilletRepository billetRepository, MatchFeignClient matchFeignClient) {
+    this.repository = billetRepository;
+    this.matchFeignClient = matchFeignClient;
+  }
 
+  public BilletWithMatchDTO getBilletWithMatch(String billetId) {
+    Optional<Billet> billetOpt = repository.findById(billetId);
+    if (billetOpt.isEmpty()) throw new RuntimeException("Billet not found");
+
+    Billet billet = billetOpt.get();
+    MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
+
+    return new BilletWithMatchDTO(billet, match);
+  }
   public BilletResponse createBillet(BilletRequest request) {
     Billet toSave = BilletMapper.toEntity(request);
     Billet saved = repository.save(toSave);

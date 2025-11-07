@@ -17,6 +17,10 @@ public class BilletController {
 
   private final BilletService billetService;
 
+  @GetMapping("/{id}/details")
+  public BilletWithMatchDTO getBilletDetails(@PathVariable String id) {
+    return billetService.getBilletWithMatch(id);
+  }
   /**
    * Crée un nouveau billet
    */

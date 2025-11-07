@@ -7,6 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
+
 public class CreateMatchRequest {
     @NotBlank(message = "Team1 ID cannot be blank")
     private String team1Id;
@@ -14,4 +15,15 @@ public class CreateMatchRequest {
     private String team2Id;
     @NotNull(message = "Date cannot be null")
     private LocalDateTime date;
+
+    public @NotBlank(message = "Team1 ID cannot be blank") String getTeam1Id() {
+        return team1Id;
+    }
+    public @NotBlank(message = "Team2 ID cannot be blank") String getTeam2Id() {
+        return team2Id;
+    }
+    public @NotNull(message = "Date cannot be null") LocalDateTime getDate() {
+        return date;
+    }
+
 }
