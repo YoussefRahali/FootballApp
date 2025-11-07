@@ -1,107 +1,156 @@
 package com.example.micromatch.entity;
 
-import com.example.micromatch.enums.MatchPhase;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.micromatch.enums.StatutMatch;
+import com.example.micromatch.enums.TourMatch;
+import com.example.micromatch.enums.VainqueurMatch;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
 
 @Document(collection = "matches")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Match {
 
     @Id
     private String id;
 
-    private String team1Id;
-    private String team2Id;
+    private String idCompetition;
+    private String idClubDomicile;
+    private String idClubExterieur;
 
-    private LocalDateTime date;
-    private String status;
-    private MatchPhase matchPhase;
+    private int butsDomicile;
+    private int butsExterieur;
+    private LocalDate dateMatch;
 
-    private Map<String, Integer> score;
-    private List<Event> events;
+    @Field(targetType = FieldType.STRING)
+    private StatutMatch statut;
 
-    private String mainReferee;
-    private List<String> assistantReferees;
-    private String fourthOfficial;
-    private List<String> varReferees;
-    private String team1Coach;
-    private String team2Coach;
+    @Field(targetType = FieldType.STRING)
+    private VainqueurMatch vainqueur;
 
-    private List<String> team1Lineup;
-    private List<String> team1Substitutes;
-    private String team1TacticalSystem;
-    private String team1CaptainId;
+    private String stade;
+    private boolean domicile;
 
-    private List<String> team2Lineup;
-    private List<String> team2Substitutes;
-    private String team2TacticalSystem;
-    private String team2CaptainId;
+    @Field(targetType = FieldType.STRING)
+    private TourMatch tour;
 
-    private Map<String, Map<String, Object>> collectiveStats; // teamId -> statName -> value
-    private List<PlayerStats> individualStats;
-
-    private List<Media> media;
-
-    private Integer additionalTime;
-
-    private List<ArbitralDecision> decisions;
-
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Integer currentMinute;
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Event {
-        private String id;
-        private int minute;
-        private String type;
-        private String teamId;
-        private String playerId;
-        private String description;
+    // --- Constructeurs ---
+    public Match() {
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PlayerStats {
-        private String playerId;
-        private String teamId;
-        private Map<String, Object> stats;
+    public Match(String id, String idCompetition, String idClubDomicile, String idClubExterieur,
+                 int butsDomicile, int butsExterieur, LocalDate dateMatch,
+                 StatutMatch statut, VainqueurMatch vainqueur,
+                 String stade, boolean domicile, TourMatch tour) {
+        this.id = id;
+        this.idCompetition = idCompetition;
+        this.idClubDomicile = idClubDomicile;
+        this.idClubExterieur = idClubExterieur;
+        this.butsDomicile = butsDomicile;
+        this.butsExterieur = butsExterieur;
+        this.dateMatch = dateMatch;
+        this.statut = statut;
+        this.vainqueur = vainqueur;
+        this.stade = stade;
+        this.domicile = domicile;
+        this.tour = tour;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Media {
-        private String id;
-        private String type; // "PHOTO", "VIDEO", "INTERVIEW"
-        private String url;
-        private String title;
+    // --- Getters et Setters ---
+    public String getId() {
+        return id;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ArbitralDecision {
-        private String id;
-        private int minute;
-        private String decision;
-        private String description;
+    public void setId(String id) {
+        this.id = id;
     }
 
+    public String getIdCompetition() {
+        return idCompetition;
+    }
+
+    public void setIdCompetition(String idCompetition) {
+        this.idCompetition = idCompetition;
+    }
+
+    public String getIdClubDomicile() {
+        return idClubDomicile;
+    }
+
+    public void setIdClubDomicile(String idClubDomicile) {
+        this.idClubDomicile = idClubDomicile;
+    }
+
+    public String getIdClubExterieur() {
+        return idClubExterieur;
+    }
+
+    public void setIdClubExterieur(String idClubExterieur) {
+        this.idClubExterieur = idClubExterieur;
+    }
+
+    public int getButsDomicile() {
+        return butsDomicile;
+    }
+
+    public void setButsDomicile(int butsDomicile) {
+        this.butsDomicile = butsDomicile;
+    }
+
+    public int getButsExterieur() {
+        return butsExterieur;
+    }
+
+    public void setButsExterieur(int butsExterieur) {
+        this.butsExterieur = butsExterieur;
+    }
+
+    public LocalDate getDateMatch() {
+        return dateMatch;
+    }
+
+    public void setDateMatch(LocalDate dateMatch) {
+        this.dateMatch = dateMatch;
+    }
+
+    public StatutMatch getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutMatch statut) {
+        this.statut = statut;
+    }
+
+    public VainqueurMatch getVainqueur() {
+        return vainqueur;
+    }
+
+    public void setVainqueur(VainqueurMatch vainqueur) {
+        this.vainqueur = vainqueur;
+    }
+
+    public String getStade() {
+        return stade;
+    }
+
+    public void setStade(String stade) {
+        this.stade = stade;
+    }
+
+    public boolean isDomicile() {
+        return domicile;
+    }
+
+    public void setDomicile(boolean domicile) {
+        this.domicile = domicile;
+    }
+    public TourMatch getTour() {
+        return tour;
+    }
+
+    public void setTour(TourMatch tour) {
+        this.tour = tour;
+    }
 }

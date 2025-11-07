@@ -10,5 +10,4 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface MatchRepository extends MongoRepository<Match, String> {
-    Page<Match> findByDate(LocalDateTime date, Pageable pageable);
 }

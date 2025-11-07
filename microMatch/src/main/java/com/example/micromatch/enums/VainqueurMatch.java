@@ -1,4 +1,4 @@
-package com.example.microcompetition.entity;
+package com.example.micromatch.enums;
 
 public enum VainqueurMatch {
     DOMICILE,

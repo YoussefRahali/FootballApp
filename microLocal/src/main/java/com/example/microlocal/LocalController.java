@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/locals")
+@RequestMapping("/api/localssss")
 public class LocalController {
     @GetMapping
     public String ping() { return "locals OK"; }
