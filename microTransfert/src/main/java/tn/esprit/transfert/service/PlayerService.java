@@ -2,7 +2,7 @@ package tn.esprit.transfert.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.transfert.entity.Player;
+import tn.esprit.transfert.DTO.Player;
 import tn.esprit.transfert.repository.PlayerRepository;
 
 @Service

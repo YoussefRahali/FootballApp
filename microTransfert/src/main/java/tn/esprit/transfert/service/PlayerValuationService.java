@@ -1,7 +1,7 @@
 package tn.esprit.transfert.service;
 
 import org.springframework.stereotype.Service;
-import tn.esprit.transfert.entity.Player;
+import tn.esprit.transfert.DTO.Player;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

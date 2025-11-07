@@ -21,6 +21,7 @@
         <module name="microBillet" />
         <module name="microCompetition" />
         <module name="microClub" />
+        <module name="transfert" />
         <module name="microMatch" />
         <module name="Transfert" />
         <module name="microLocal" />
@@ -50,6 +51,7 @@
       <module name="microStaff" options="-parameters" />
       <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
+      <module name="transfert" options="-parameters" />
     </option>
   </component>
 </project>

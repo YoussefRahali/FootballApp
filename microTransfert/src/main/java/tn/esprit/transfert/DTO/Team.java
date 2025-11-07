@@ -1,4 +1,4 @@
-package tn.esprit.transfert.entity;
+package tn.esprit.transfert.DTO;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
