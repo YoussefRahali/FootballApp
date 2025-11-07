@@ -1,6 +1,7 @@
 package com.example.microclub;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +40,17 @@ public class ClubService {
 
     public void deleteClub(String id) {
         clubRepository.deleteById(id);
+    }
+
+    @Autowired
+    private JoueurClient joueurClient;
+
+    public List<Joueur> all(){
+        return joueurClient.all();
+    }
+
+
+    public Joueur one(String id){
+        return joueurClient.one(id);
     }
 }
