@@ -18,13 +18,12 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="microMatch" />
         <module name="microLocal" />
         <module name="microUser" />
         <module name="microStaff" />
         <module name="microJoueur" />
       </profile>
-      <profile name="Annotation profile for microTransfert" enabled="true">
+      <profile name="Annotation profile for microMatch" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -35,6 +34,7 @@
         <module name="microTransfert" />
         <module name="microCompetition" />
         <module name="microClub" />
+        <module name="microMatch" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
