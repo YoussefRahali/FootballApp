@@ -3,6 +3,8 @@ package com.example.microjoueur;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+
 @Document(collection = "Joueur")
 public class Joueur {
     @Id
@@ -18,7 +20,13 @@ public class Joueur {
     private Integer numero;      // dossard
     private String club;         // club actuel
     private String nationalite;
-
+    private String position;
+    private int goals;
+    private int assists;
+    private int appearances;
+    private double baseValue;
+    private double estimatedValue;
+    private LocalDate contractEndDate;
     // Constructors
     public Joueur() {
     }
