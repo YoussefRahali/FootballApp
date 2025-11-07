@@ -11,7 +11,7 @@
         <module name="discovery" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for microTransfert" enabled="true">
+      <profile name="Annotation profile for Transfert Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -21,6 +21,7 @@
         <module name="microBillet" />
         <module name="microClub" />
         <module name="microMatch" />
+        <module name="Transfert" />
         <module name="microLocal" />
         <module name="microTransfert" />
         <module name="microUser" />
@@ -45,6 +46,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="FootballApp" options="-parameters" />
+      <module name="Transfert" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
