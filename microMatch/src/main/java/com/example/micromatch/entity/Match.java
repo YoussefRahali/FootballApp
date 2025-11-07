@@ -1,5 +1,8 @@
-package com.example.micromatch;
+package com.example.micromatch.entity;
 
+import com.example.micromatch.enums.StatutMatch;
+import com.example.micromatch.enums.TourMatch;
+import com.example.micromatch.enums.VainqueurMatch;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;

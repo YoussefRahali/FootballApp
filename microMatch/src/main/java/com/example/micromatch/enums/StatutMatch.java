@@ -1,4 +1,4 @@
-package com.example.micromatch;
+package com.example.micromatch.enums;
 
 public enum StatutMatch {
     PROGRAMMÉ,
