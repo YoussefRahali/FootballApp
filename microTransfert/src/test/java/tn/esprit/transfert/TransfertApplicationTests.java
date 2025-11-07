@@ -1,13 +1,13 @@
-package com.example.microtransfert;
+package tn.esprit.transfert;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MicroTransfertApplicationTests {
+class TransfertApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
