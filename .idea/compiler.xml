@@ -11,7 +11,7 @@
         <module name="discovery" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for microBillet" enabled="true">
+      <profile name="Annotation profile for microJoueur" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -21,13 +21,14 @@
         <module name="microBillet" />
         <module name="microClub" />
         <module name="microCompetition" />
+        <module name="transfert" />
         <module name="microMatch" />
-        <module name="Transfert" />
         <module name="microLocal" />
+        <module name="Transfert" />
         <module name="microTransfert" />
         <module name="microUser" />
-        <module name="microStaff" />
         <module name="microJoueur" />
+        <module name="microStaff" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -50,6 +51,7 @@
       <module name="microStaff" options="-parameters" />
       <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
+      <module name="transfert" options="-parameters" />
     </option>
   </component>
 </project>
