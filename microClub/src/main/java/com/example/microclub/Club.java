@@ -11,6 +11,7 @@ public class Club {
     private String city;
     private int establishedYear;
     private String president;
+    private double budget;
 
     // Getter for id
     public String getId() {
