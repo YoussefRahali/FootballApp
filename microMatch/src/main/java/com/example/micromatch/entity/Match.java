@@ -41,9 +41,9 @@ public class Match {
     }
 
     public Match(String id, String idCompetition, String idClubDomicile, String idClubExterieur,
-                 int butsDomicile, int butsExterieur, LocalDate dateMatch,
-                 StatutMatch statut, VainqueurMatch vainqueur,
-                 String stade, boolean domicile, TourMatch tour) {
+        int butsDomicile, int butsExterieur, LocalDate dateMatch,
+        StatutMatch statut, VainqueurMatch vainqueur,
+        String stade, boolean domicile, TourMatch tour) {
         this.id = id;
         this.idCompetition = idCompetition;
         this.idClubDomicile = idClubDomicile;

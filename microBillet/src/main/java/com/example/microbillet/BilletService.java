@@ -20,18 +20,23 @@ public class BilletService {
   }
 
   public BilletWithMatchDTO getBilletWithMatch(String billetId) {
-    Optional<Billet> billetOpt = repository.findById(billetId);
-    if (billetOpt.isEmpty()) throw new RuntimeException("Billet not found");
+    Billet billet = repository.findById(billetId)
+        .orElseThrow(() -> new RuntimeException("Billet not found"));
 
-    Billet billet = billetOpt.get();
+    // ✅ Fetch match data via Feign client
     MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
 
-    return new BilletWithMatchDTO(billet, match);
+    // Combine into one DTO
+    BilletWithMatchDTO dto = new BilletWithMatchDTO();
+    dto.setId(billet.getId());
+    dto.setNumero(billet.getNumero());
+    dto.setPrix(billet.getPrix());
+    dto.setMatch(match);
+
+    return dto;
   }
-  public BilletResponse createBillet(BilletRequest request) {
-    Billet toSave = BilletMapper.toEntity(request);
-    Billet saved = repository.save(toSave);
-    return BilletMapper.toResponse(saved);
+  public Billet createBillet(Billet billet) {
+    return repository.save(billet);
   }
 
 
