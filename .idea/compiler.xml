@@ -20,6 +20,7 @@
         </processorPath>
         <module name="microBillet" />
         <module name="microClub" />
+        <module name="microCompetition" />
         <module name="microMatch" />
         <module name="Transfert" />
         <module name="microLocal" />
