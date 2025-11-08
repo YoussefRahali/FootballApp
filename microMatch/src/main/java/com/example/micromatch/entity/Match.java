@@ -4,6 +4,7 @@ import com.example.micromatch.enums.MatchStatus;
 import com.example.micromatch.enums.TunisianReferee;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,135 +31,70 @@ public class Match {
     public Match() {
     }
 
-    public Match(String id, String idCompetition, String idClubDomicile, String idClubExterieur,
-        int butsDomicile, int butsExterieur, LocalDate dateMatch,
-        StatutMatch statut, VainqueurMatch vainqueur,
-        String stade, boolean domicile, TourMatch tour) {
-        this.id = id;
-        this.idCompetition = idCompetition;
-        this.idClubDomicile = idClubDomicile;
-        this.idClubExterieur = idClubExterieur;
-        this.butsDomicile = butsDomicile;
-        this.butsExterieur = butsExterieur;
-        this.dateMatch = dateMatch;
-        this.statut = statut;
-        this.vainqueur = vainqueur;
-        this.stade = stade;
-        this.domicile = domicile;
-        this.tour = tour;
-    }
-
-    // --- Getters et Setters ---
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTeam1Id() {
-        return team1Id;
-    }
-
-    public void setTeam1Id(String team1Id) {
+    // Optional focused constructor matching existing fields
+    public Match(String team1Id, String team2Id, LocalDateTime date, MatchStatus status) {
         this.team1Id = team1Id;
-    }
-
-    public String getTeam2Id() {
-        return team2Id;
-    }
-
-    public void setTeam2Id(String team2Id) {
         this.team2Id = team2Id;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public MatchStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MatchStatus status) {
         this.status = status;
     }
 
-    public int getScoreTeam1() {
-        return scoreTeam1;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setScoreTeam1(int scoreTeam1) {
-        this.scoreTeam1 = scoreTeam1;
-    }
+    public String getTeam1Id() { return team1Id; }
+    public void setTeam1Id(String team1Id) { this.team1Id = team1Id; }
 
-    public int getScoreTeam2() {
-        return scoreTeam2;
-    }
+    public String getTeam2Id() { return team2Id; }
+    public void setTeam2Id(String team2Id) { this.team2Id = team2Id; }
 
-    public void setScoreTeam2(int scoreTeam2) {
-        this.scoreTeam2 = scoreTeam2;
-    }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
 
-    public String getPhase() {
-        return phase;
-    }
+    public MatchStatus getStatus() { return status; }
+    public void setStatus(MatchStatus status) { this.status = status; }
 
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
+    public int getScoreTeam1() { return scoreTeam1; }
+    public void setScoreTeam1(int scoreTeam1) { this.scoreTeam1 = scoreTeam1; }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
+    public int getScoreTeam2() { return scoreTeam2; }
+    public void setScoreTeam2(int scoreTeam2) { this.scoreTeam2 = scoreTeam2; }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
+    public String getPhase() { return phase; }
+    public void setPhase(String phase) { this.phase = phase; }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
+    public LocalDateTime getStartTime() { return startTime; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
+    public LocalDateTime getEndTime() { return endTime; }
+    public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
 
-    public long getDuration() {
-        return duration;
-    }
+    public long getDuration() { return duration; }
+    public void setDuration(long duration) { this.duration = duration; }
 
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
+    public List<String> getEvents() { return events; }
+    public void setEvents(List<String> events) { this.events = events; }
 
-    public List<String> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<String> events) {
-        this.events = events;
-    }
-
-    public TunisianReferee getReferee() {
-        return referee;
-    }
-
-    public void setReferee(TunisianReferee referee) {
-        this.referee = referee;
-    }
+    public TunisianReferee getReferee() { return referee; }
+    public void setReferee(TunisianReferee referee) { this.referee = referee; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Match match = (Match) o;
-        return scoreTeam1 == match.scoreTeam1 && scoreTeam2 == match.scoreTeam2 && duration == match.duration && Objects.equals(id, match.id) && Objects.equals(team1Id, match.team1Id) && Objects.equals(team2Id, match.team2Id) && Objects.equals(date, match.date) && status == match.status && Objects.equals(phase, match.phase) && Objects.equals(startTime, match.startTime) && Objects.equals(endTime, match.endTime) && Objects.equals(events, match.events) && referee == match.referee;
+        if (!(o instanceof Match match)) return false;
+        return scoreTeam1 == match.scoreTeam1
+                && scoreTeam2 == match.scoreTeam2
+                && duration == match.duration
+                && Objects.equals(id, match.id)
+                && Objects.equals(team1Id, match.team1Id)
+                && Objects.equals(team2Id, match.team2Id)
+                && Objects.equals(date, match.date)
+                && status == match.status
+                && Objects.equals(phase, match.phase)
+                && Objects.equals(startTime, match.startTime)
+                && Objects.equals(endTime, match.endTime)
+                && Objects.equals(events, match.events)
+                && referee == match.referee;
     }
 
     @Override

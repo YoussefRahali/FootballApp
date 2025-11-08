@@ -1,35 +1,33 @@
 package com.example.microbillet;
 
-
 import java.time.Instant;
 
 public final class BilletMapper {
-
   private BilletMapper() {}
 
   public static Billet toEntity(BilletRequest req) {
-    return Billet.builder()
-        .matchId(req.getMatchId())
-        .purchaserId(req.getPurchaserId())
-        .seat(req.getSeat())
-        .price(req.getPrice() != null ? req.getPrice() : 0.0)
-        .status("RESERVED")
-        .createdAt(Instant.now())
-        .updatedAt(Instant.now())
-        .build();
+    Billet b = new Billet();
+    b.setMatchId(req.getMatchId());
+    b.setPurchaserId(req.getPurchaserId());
+    b.setSeat(req.getSeat());
+    b.setPrice(req.getPrice() != null ? req.getPrice() : 0.0);
+    b.setStatus("RESERVED");
+    b.setCreatedAt(Instant.now());
+    b.setUpdatedAt(Instant.now());
+    return b;
   }
 
   public static BilletResponse toResponse(Billet b) {
     if (b == null) return null;
-    return BilletResponse.builder()
-        .id(b.getId())
-        .matchId(b.getMatchId())
-        .purchaserId(b.getPurchaserId())
-        .seat(b.getSeat())
-        .price(b.getPrice())
-        .status(b.getStatus())
-        .createdAt(b.getCreatedAt())
-        .updatedAt(b.getUpdatedAt())
-        .build();
+    BilletResponse r = new BilletResponse();
+    r.setId(b.getId());
+    r.setMatchId(b.getMatchId());
+    r.setPurchaserId(b.getPurchaserId());
+    r.setSeat(b.getSeat());
+    r.setPrice(b.getPrice());
+    r.setStatus(b.getStatus());
+    r.setCreatedAt(b.getCreatedAt());
+    r.setUpdatedAt(b.getUpdatedAt());
+    return r;
   }
 }
