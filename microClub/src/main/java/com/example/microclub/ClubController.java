@@ -54,4 +54,24 @@ public class ClubController {
     public Joueur getJoueurById(@PathVariable String id){
         return clubService.one(id);
     }
+
+    @GetMapping("/search/name")
+    public List<Club> searchByName(@RequestParam String name) {
+        return clubService.findByName(name);
+    }
+
+    @GetMapping("/search/president")
+    public List<Club> searchByPresident(@RequestParam String president) {
+        return clubService.findByPresident(president);
+    }
+
+    @GetMapping("/{clubName}/players")
+    public List<Joueur> getPlayersByClub(@PathVariable String clubName) {
+        return clubService.getPlayersByClubName(clubName);
+    }
+
+    @GetMapping("/{clubName}/players/count")
+    public int countPlayersByClub(@PathVariable String clubName) {
+        return clubService.countPlayersByClubName(clubName);
+    }
 }
