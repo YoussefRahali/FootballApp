@@ -11,8 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/billets")
+@CrossOrigin("http://localhost:4200")
 
-@CrossOrigin(origins = "*") // à ajuster selon ton front-end Angular
+
 public class BilletController {
   private final BilletService billetService;
 
@@ -29,7 +30,6 @@ public class BilletController {
   public Billet createBillet(@RequestBody Billet billet) {
     return billetService.createBillet(billet);
   }
-
 
 
 

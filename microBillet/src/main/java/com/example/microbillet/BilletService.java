@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BilletService {
   private final BilletRepository repository;
   private final MatchFeignClient matchFeignClient;
+  private final ClubClient clubClient;
 
-  public BilletService(BilletRepository billetRepository, MatchFeignClient matchFeignClient) {
+  public BilletService(BilletRepository billetRepository, MatchFeignClient matchFeignClient, ClubClient clubClient) {
+    this.clubClient = clubClient;
     this.repository = billetRepository;
     this.matchFeignClient = matchFeignClient;
   }
@@ -23,19 +25,19 @@ public class BilletService {
     Billet billet = repository.findById(billetId)
         .orElseThrow(() -> new RuntimeException("Billet not found"));
 
-    // ✅ Fetch match data via Feign client
     MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
+    ClubDTO equipe1 = clubClient.getClubById(match.getIdClubDomicile());
+    ClubDTO equipe2 = clubClient.getClubById(match.getIdClubExterieur());
 
-    // Combine into one DTO
-    BilletWithMatchDTO dto = new BilletWithMatchDTO();
-    dto.setId(billet.getId());
-    dto.setNumero(billet.getNumero());
-    dto.setPrix(billet.getPrix());
-    dto.setMatch(match);
-
-    return dto;
+    return new BilletWithMatchDTO(billet, match, equipe1, equipe2);
   }
   public Billet createBillet(Billet billet) {
+    MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
+    if (match == null) {
+      throw new RuntimeException("Match not found");
+    }
+
+    // Save the billet if match exists
     return repository.save(billet);
   }
 
