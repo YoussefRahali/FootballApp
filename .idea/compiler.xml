@@ -41,6 +41,7 @@
         </processorPath>
         <module name="microBillet" />
         <module name="microMatch" />
+        <module name="microJoueur" />
       </profile>
     </annotationProcessing>
   </component>
@@ -56,6 +57,7 @@
       <module name="microLocal" options="-parameters" />
       <module name="microMatch" options="-parameters" />
       <module name="microStaff" options="-parameters" />
+      <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
       <module name="transfert" options="-parameters" />
     </option>
