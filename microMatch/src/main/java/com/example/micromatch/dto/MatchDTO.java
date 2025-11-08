@@ -1,8 +1,8 @@
 package com.example.micromatch.dto;
+import java.time.LocalDateTime;
 
 import com.example.micromatch.enums.MatchStatus;
 import com.example.micromatch.enums.TunisianReferee;
-import java.time.LocalDateTime;
 
 public class MatchDTO {
     private String team1Id;
@@ -11,43 +11,20 @@ public class MatchDTO {
     private MatchStatus status;
     private TunisianReferee referee;
 
-    public String getTeam1Id() {
-        return team1Id;
-    }
+    public MatchDTO() {}
 
-    public void setTeam1Id(String team1Id) {
-        this.team1Id = team1Id;
-    }
+    public String getTeam1Id() { return team1Id; }
+    public void setTeam1Id(String team1Id) { this.team1Id = team1Id; }
 
-    public String getTeam2Id() {
-        return team2Id;
-    }
+    public String getTeam2Id() { return team2Id; }
+    public void setTeam2Id(String team2Id) { this.team2Id = team2Id; }
 
-    public void setTeam2Id(String team2Id) {
-        this.team2Id = team2Id;
-    }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+    public MatchStatus getStatus() { return status; }
+    public void setStatus(MatchStatus status) { this.status = status; }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public MatchStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MatchStatus status) {
-        this.status = status;
-    }
-
-    public TunisianReferee getReferee() {
-        return referee;
-    }
-
-    public void setReferee(TunisianReferee referee) {
-        this.referee = referee;
-    }
+    public TunisianReferee getReferee() { return referee; }
+    public void setReferee(TunisianReferee referee) { this.referee = referee; }
 }

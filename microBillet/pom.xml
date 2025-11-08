@@ -61,13 +61,6 @@
 			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
