@@ -8,15 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
+        <module name="Transfert (1)" />
         <module name="discovery" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for microJoueur" enabled="true">
+      <profile name="Annotation profile for microClub" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
         <module name="microBillet" />
         <module name="microClub" />
@@ -24,11 +25,10 @@
         <module name="transfert" />
         <module name="microMatch" />
         <module name="microLocal" />
-        <module name="Transfert" />
         <module name="microTransfert" />
         <module name="microUser" />
-        <module name="microJoueur" />
         <module name="microStaff" />
+        <module name="microJoueur" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -39,6 +39,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="FootballApp" options="-parameters" />
       <module name="Transfert" options="-parameters" />
+      <module name="Transfert (1)" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
