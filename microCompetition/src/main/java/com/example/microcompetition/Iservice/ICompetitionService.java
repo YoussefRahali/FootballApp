@@ -1,5 +1,6 @@
 package com.example.microcompetition.Iservice;
 
+import com.example.microcompetition.dto.ClubDTO;
 import com.example.microcompetition.entity.Competition;
 import com.example.microcompetition.entity.TypeCompetition;
 
@@ -27,4 +28,8 @@ public interface ICompetitionService {
     List<Competition> filterBySaison(String saison);
 
     List<Competition> filterByPeriod(LocalDate start, LocalDate end);
+
+    Competition assignClub(String competitionId, String clubId);
+    Competition removeClub(String competitionId, String clubId);
+    List<ClubDTO> getClubsForCompetition(String competitionId);
 }

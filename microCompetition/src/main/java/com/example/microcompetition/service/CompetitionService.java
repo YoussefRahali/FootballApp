@@ -1,5 +1,7 @@
 package com.example.microcompetition.service;
 
+import com.example.microcompetition.client.ClubClient;
+import com.example.microcompetition.dto.ClubDTO;
 import com.example.microcompetition.entity.Competition;
 import com.example.microcompetition.entity.TypeCompetition;
 import com.example.microcompetition.repository.CompetitionRepository;
@@ -12,9 +14,12 @@ import java.util.List;
 public class CompetitionService {
 
     private final CompetitionRepository repo;
+    private  ClubClient clubClient; // instance injectée
 
-    public CompetitionService(CompetitionRepository repo) {
+    public CompetitionService(CompetitionRepository repo, ClubClient clubClient) {
         this.repo = repo;
+        this.clubClient = clubClient; // <-- initialisé
+
     }
 
     public List<Competition> getAll() {
@@ -53,5 +58,27 @@ public class CompetitionService {
 
     public List<Competition> filterByPeriod(LocalDate start, LocalDate end) {
         return repo.findByDateDebutBetween(start, end);
+    }
+
+    public Competition assignClub(String competitionId, String clubId) {
+        Competition competition = repo.findById(competitionId).orElseThrow(() -> new RuntimeException("Competition not found"));
+        competition.addClub(clubId);
+        return repo.save(competition);
+    }
+
+    public Competition removeClub(String competitionId, String clubId) {
+        Competition competition = repo.findById(competitionId).orElseThrow(() -> new RuntimeException("Competition not found"));
+        competition.removeClub(clubId);
+        return repo.save(competition);
+    }
+
+    public List<ClubDTO> getClubsForCompetition(String competitionId) {
+        Competition competition = repo.findById(competitionId)
+                .orElseThrow(() -> new RuntimeException("Competition not found"));
+
+        // Utilise l'instance clubClient
+        return competition.getClubIds().stream()
+                .map(id -> clubClient.getClubById(id)) // ✅ Correct
+                .toList();
     }
 }
