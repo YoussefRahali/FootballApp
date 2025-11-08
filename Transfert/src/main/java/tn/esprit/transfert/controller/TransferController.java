@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("transfers")
 @RequiredArgsConstructor
 public class TransferController {
@@ -97,8 +98,6 @@ public class TransferController {
     }
 
     // -------------------- CLIENT INFO --------------------
-
-
 
     @GetMapping("/clubs")
     public List<Club> getAllClubs() {
