@@ -1,15 +1,15 @@
 package com.example.microcompetition.controlleur;
 
 import com.example.microcompetition.entity.Competition;
+import com.example.microcompetition.entity.TypeCompetition;
 import com.example.microcompetition.service.CompetitionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/competitions")
-@CrossOrigin
+@RequestMapping("/competitions")
 public class CompetitionController {
 
     private final CompetitionService service;
@@ -18,33 +18,51 @@ public class CompetitionController {
         this.service = service;
     }
 
-    // Récupérer toutes les compétitions
     @GetMapping
-    public List<Competition> getToutes() {
+    public List<Competition> getAll() {
         return service.getAll();
     }
 
-    // Récupérer une compétition par son ID
     @GetMapping("/{id}")
-    public Optional<Competition> getParId(@PathVariable String id) {
+    public Competition getById(@PathVariable String id) {
         return service.getById(id);
     }
 
-    // Ajouter une nouvelle compétition
     @PostMapping
-    public Competition ajouter(@RequestBody Competition c) {
+    public Competition add(@RequestBody Competition c) {
         return service.add(c);
     }
 
-    // Mettre à jour une compétition existante
     @PutMapping("/{id}")
-    public Competition mettreAJour(@PathVariable String id, @RequestBody Competition c) {
+    public Competition update(@PathVariable String id, @RequestBody Competition c) {
         return service.update(id, c);
     }
 
-    // Supprimer une compétition
     @DeleteMapping("/{id}")
-    public void supprimer(@PathVariable String id) {
+    public void delete(@PathVariable String id) {
         service.delete(id);
+    }
+
+    // --- Recherches / filtrages simples ---
+    @GetMapping("/search")
+    public List<Competition> searchByName(@RequestParam String nom) {
+        return service.searchByName(nom);
+    }
+
+    @GetMapping("/filter/type")
+    public List<Competition> filterByType(@RequestParam TypeCompetition type) {
+        return service.filterByType(type);
+    }
+
+    @GetMapping("/filter/saison")
+    public List<Competition> filterBySaison(@RequestParam String saison) {
+        return service.filterBySaison(saison);
+    }
+
+    @GetMapping("/filter/period")
+    public List<Competition> filterByPeriod(
+            @RequestParam LocalDate start,
+            @RequestParam LocalDate end) {
+        return service.filterByPeriod(start, end);
     }
 }

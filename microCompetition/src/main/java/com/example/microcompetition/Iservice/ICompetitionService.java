@@ -1,9 +1,9 @@
 package com.example.microcompetition.Iservice;
 
-import com.example.microcompetition.dto.ClubDTO;
 import com.example.microcompetition.entity.Competition;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.example.microcompetition.entity.TypeCompetition;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +19,12 @@ public interface ICompetitionService {
 
     void delete(String id);
 
+    // --- RECHERCHE ET FILTRAGE SIMPLES ---
+    List<Competition> searchByName(String nom);
 
-    }
+    List<Competition> filterByType(TypeCompetition type);
+
+    List<Competition> filterBySaison(String saison);
+
+    List<Competition> filterByPeriod(LocalDate start, LocalDate end);
+}
