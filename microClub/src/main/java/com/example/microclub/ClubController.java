@@ -80,3 +80,4 @@ public class ClubController {
         return clubService.getSuggestedFormation(clubName);
     }
 }
+ 
