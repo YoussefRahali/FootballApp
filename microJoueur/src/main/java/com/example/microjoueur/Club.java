@@ -1,11 +1,6 @@
-package com.example.microclub;
+package com.example.microjoueur;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "clubs")
 public class Club {
-    @Id
     private String id;
     private String name;
     private String city;
@@ -61,13 +56,5 @@ public class Club {
     // Setter for president
     public void setPresident(String president) {
         this.president = president;
-    }
-
-    public double getBudget() {
-        return budget;
-    }
-
-    public void setBudget(double budget) {
-        this.budget = budget;
     }
 }
