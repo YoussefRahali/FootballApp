@@ -2,32 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="config-server" />
-        <module name="discovery" />
-        <module name="gateway" />
-      </profile>
-      <profile name="Annotation profile for microCompetition" enabled="true">
-      <profile name="Annotation profile for microUser" enabled="true">
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Annotation profile for microMatch" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
         </processorPath>
-        <module name="microBillet" />
         <module name="microCompetition" />
         <module name="microClub" />
         <module name="microMatch" />
-        <module name="microLocal" />
-        <module name="Transfert" />
-        <module name="microTransfert" />
-        <module name="microUser" />
-        <module name="microStaff" />
         <module name="microJoueur" />
       </profile>
     </annotationProcessing>
@@ -44,6 +29,7 @@
       <module name="microLocal" options="-parameters" />
       <module name="microMatch" options="-parameters" />
       <module name="microStaff" options="-parameters" />
+      <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
     </option>
   </component>
