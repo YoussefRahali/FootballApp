@@ -1,7 +1,7 @@
 package com.example.microclub;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
@@ -44,22 +45,13 @@ public class ClubController {
         clubService.deleteClub(id);
     }
 
-    @RequestMapping("/joueurs")
-    public List<Joueur> getAllJobs(){
+    @GetMapping("/joueurs")
+    public List<Joueur> getAllJoueurs(){
         return clubService.all();
     }
 
-    @RequestMapping("/joueurs/{id}")
-    public Joueur getJobById(@PathVariable String id){
+    @GetMapping("/joueurs/{id}")
+    public Joueur getJoueurById(@PathVariable String id){
         return clubService.one(id);
     }
-
-//    @Value("${welcome.message}")
-//    private String welcomeMessage;
-//    @GetMapping("/welcome")
-//    public String welcome() {
-//        return welcomeMessage;
-//    }
-
-
 }
