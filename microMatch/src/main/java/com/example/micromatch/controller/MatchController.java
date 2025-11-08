@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/matches")
+@CrossOrigin("http://localhost:4200")
 public class MatchController {
 
     private final MatchService matchService;

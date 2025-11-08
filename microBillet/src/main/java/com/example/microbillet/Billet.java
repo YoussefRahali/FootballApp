@@ -23,5 +23,8 @@ public class Billet {
   private String status;
   private Instant createdAt;
   private Instant updatedAt;
+  private String numero;
+  private Double prix;
+
 
 }

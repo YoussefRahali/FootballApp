@@ -2,21 +2,43 @@ package com.example.microbillet;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+
 public class BilletService {
   private final BilletRepository repository;
+  private final MatchFeignClient matchFeignClient;
+  private final ClubClient clubClient;
 
+  public BilletService(BilletRepository billetRepository, MatchFeignClient matchFeignClient, ClubClient clubClient) {
+    this.clubClient = clubClient;
+    this.repository = billetRepository;
+    this.matchFeignClient = matchFeignClient;
+  }
 
-  public BilletResponse createBillet(BilletRequest request) {
-    Billet toSave = BilletMapper.toEntity(request);
-    Billet saved = repository.save(toSave);
-    return BilletMapper.toResponse(saved);
+  public BilletWithMatchDTO getBilletWithMatch(String billetId) {
+    Billet billet = repository.findById(billetId)
+        .orElseThrow(() -> new RuntimeException("Billet not found"));
+
+    MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
+    ClubDTO equipe1 = clubClient.getClubById(match.getIdClubDomicile());
+    ClubDTO equipe2 = clubClient.getClubById(match.getIdClubExterieur());
+
+    return new BilletWithMatchDTO(billet, match, equipe1, equipe2);
+  }
+  public Billet createBillet(Billet billet) {
+    MatchDTO match = matchFeignClient.getMatchById(billet.getMatchId());
+    if (match == null) {
+      throw new RuntimeException("Match not found");
+    }
+
+    // Save the billet if match exists
+    return repository.save(billet);
   }
 
 
