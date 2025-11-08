@@ -7,6 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="config-server" />
+        <module name="Transfert (1)" />
+        <module name="discovery" />
+        <module name="gateway" />
+      </profile>
+      <profile name="Annotation profile for microClub" enabled="true">
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
@@ -41,6 +47,23 @@
         </processorPath>
         <module name="microBillet" />
         <module name="microMatch" />
+        <module name="microLocal" />
+        <module name="microTransfert" />
+        <module name="microUser" />
+        <module name="microStaff" />
+        <module name="microJoueur" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FootballApp" target="17" />
+      <module name="transfert" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FootballApp" options="-parameters" />
+      <module name="Transfert" options="-parameters" />
+      <module name="Transfert (1)" options="-parameters" />
         <module name="microJoueur" />
       </profile>
     </annotationProcessing>
