@@ -56,6 +56,7 @@ public class JoueurService {
             j.setNumero(payload.getNumero());
             j.setClubId(payload.getClubId());
             j.setNationalite(payload.getNationalite());
+            j.setProfilePicture(payload.getProfilePicture());
             j.setGoals(payload.getGoals());
             j.setAssists(payload.getAssists());
             j.setAppearances(payload.getAppearances());

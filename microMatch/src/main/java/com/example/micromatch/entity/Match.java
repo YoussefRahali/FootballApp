@@ -30,6 +30,25 @@ public class Match {
     public Match() {
     }
 
+    public Match(String id, String idCompetition, String idClubDomicile, String idClubExterieur,
+        int butsDomicile, int butsExterieur, LocalDate dateMatch,
+        StatutMatch statut, VainqueurMatch vainqueur,
+        String stade, boolean domicile, TourMatch tour) {
+        this.id = id;
+        this.idCompetition = idCompetition;
+        this.idClubDomicile = idClubDomicile;
+        this.idClubExterieur = idClubExterieur;
+        this.butsDomicile = butsDomicile;
+        this.butsExterieur = butsExterieur;
+        this.dateMatch = dateMatch;
+        this.statut = statut;
+        this.vainqueur = vainqueur;
+        this.stade = stade;
+        this.domicile = domicile;
+        this.tour = tour;
+    }
+
+    // --- Getters et Setters ---
     public String getId() {
         return id;
     }
