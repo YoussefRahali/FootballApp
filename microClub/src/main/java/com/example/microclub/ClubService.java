@@ -67,9 +67,19 @@ public class ClubService {
 
     // Advanced: Get players by club name
     public List<Joueur> getPlayersByClubName(String clubName) {
+        // Trouver le club par son nom pour obtenir son ID
+        List<Club> clubs = clubRepository.findByNameContainingIgnoreCase(clubName);
+        if (clubs.isEmpty()) {
+            return new java.util.ArrayList<>();
+        }
+
+        // Prendre le premier club trouvé
+        String clubId = clubs.get(0).getId();
+
+        // Récupérer tous les joueurs et filtrer par clubId
         List<Joueur> allJoueurs = joueurClient.all();
         return allJoueurs.stream()
-                .filter(joueur -> joueur.getClub() != null && joueur.getClub().equalsIgnoreCase(clubName))
+                .filter(joueur -> joueur.getClubId() != null && joueur.getClubId().equals(clubId))
                 .toList();
     }
 
@@ -84,22 +94,22 @@ public class ClubService {
 
         // Séparer les joueurs par position
         List<Joueur> goalkeepers = allPlayers.stream()
-                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("GK"))
+                .filter(j -> j.getPosition() != null && j.getPosition().equalsIgnoreCase("GK"))
                 .limit(1)
                 .toList();
 
         List<Joueur> defenders = allPlayers.stream()
-                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("DEF"))
+                .filter(j -> j.getPosition() != null && j.getPosition().equalsIgnoreCase("DEF"))
                 .limit(4)
                 .toList();
 
         List<Joueur> midfielders = allPlayers.stream()
-                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("MID"))
+                .filter(j -> j.getPosition() != null && j.getPosition().equalsIgnoreCase("MID"))
                 .limit(3)
                 .toList();
 
         List<Joueur> attackers = allPlayers.stream()
-                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("ATT"))
+                .filter(j -> j.getPosition() != null && j.getPosition().equalsIgnoreCase("ATT"))
                 .limit(3)
                 .toList();
 
