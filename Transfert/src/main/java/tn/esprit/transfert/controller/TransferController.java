@@ -61,9 +61,33 @@ public class TransferController {
     // -------------------- OFFERS --------------------
 
     @GetMapping("/offers")
-    public ResponseEntity<List<Offer>> getAllOffers() {
-        return ResponseEntity.ok(transferService.getAllOffers());
+    public ResponseEntity<?> getAllOffers() {
+        try {
+            List<Offer> offers = transferService.getAllOffers();
+
+            if (offers.isEmpty()) {
+                // Retourne 204 No Content si aucune offre n'existe
+                return ResponseEntity.noContent().build();
+            }
+
+            // Retourne 200 OK avec la liste d'offres
+            return ResponseEntity.ok(offers);
+
+        } catch (Exception e) {
+            // Gestion des erreurs serveur
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Impossible de récupérer les offres : " + e.getMessage());
+        }
     }
+
+
+    @GetMapping("/offer")
+    public ResponseEntity<?> getOffer() {
+        return (ResponseEntity<?>) transferService.getOffer ();
+    }
+
+
+
 
     @GetMapping("/offers/{id}")
     public ResponseEntity<Offer> getOfferById(@PathVariable String id) {

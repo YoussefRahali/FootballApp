@@ -67,10 +67,18 @@ public class TransferService {
         transferRepository.deleteById(id);
     }
 
-    // ---------------- OFFERS ----------------
-    public List<Offer> getAllOffers() {
+
+    public List<Offer> getOffer(){
         return offerRepository.findAll();
     }
+
+    // ---------------- OFFERS ----------------
+    public List<Offer> getAllOffers() {
+        List<Offer> offers = offerRepository.findAll();
+        System.out.println("OFFERS = " + offers);
+        return offers;
+    }
+
 
     public Offer createOffer(Offer offer) {
         //Joueur joueur = getJoueurSafe(offer.getJoueurId());

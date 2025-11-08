@@ -1,5 +1,6 @@
 package tn.esprit.transfert.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
@@ -14,6 +15,9 @@ public class Offer {
     private double amount;
     private LocalDate offerDate;
     private String status; // PENDING / ACCEPTED / REJECTED
+
+    @JsonIgnore
+    private Transfer transfer; // Si tu as un back-reference
 
     public Offer() {}
 
