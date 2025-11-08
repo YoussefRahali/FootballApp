@@ -1,5 +1,6 @@
 package com.example.microcompetition.controlleur;
 
+import com.example.microcompetition.dto.ClubDTO;
 import com.example.microcompetition.entity.Competition;
 import com.example.microcompetition.entity.TypeCompetition;
 import com.example.microcompetition.service.CompetitionService;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/competitions")
 public class CompetitionController {
@@ -64,5 +65,21 @@ public class CompetitionController {
             @RequestParam LocalDate start,
             @RequestParam LocalDate end) {
         return service.filterByPeriod(start, end);
+    }
+
+    @PutMapping("/{competitionId}/clubs/{clubId}")
+    public Competition assignClub(@PathVariable String competitionId, @PathVariable String clubId) {
+        return service.assignClub(competitionId, clubId);
+    }
+
+
+    @DeleteMapping("/{competitionId}/clubs/{clubId}")
+    public Competition removeClub(@PathVariable String competitionId, @PathVariable String clubId) {
+        return service.removeClub(competitionId, clubId);
+    }
+
+    @GetMapping("/{competitionId}/clubs")
+    public List<ClubDTO> getClubs(@PathVariable String competitionId) {
+        return service.getClubsForCompetition(competitionId);
     }
 }

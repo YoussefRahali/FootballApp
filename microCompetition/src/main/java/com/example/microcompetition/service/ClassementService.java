@@ -112,8 +112,10 @@ public class ClassementService implements IClassementService {
         return clubClient.getAllClubs();
     }
 
-    public ClubDTO getClubById(@PathVariable("id") String id){
-        return clubClient.getClubById(id);
+    public ClubDTO getClubById(String id) {
+        ClubDTO club = clubClient.getClubById(id);
+        System.out.println("Club name: " + club.getName()); // debug
+        return club;
     }
 
 }
