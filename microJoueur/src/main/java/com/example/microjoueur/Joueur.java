@@ -20,6 +20,7 @@ public class Joueur {
     private Integer numero;      // dossard
     private String clubId;       // ID du club actuel
     private String nationalite;
+    private String profilePicture; // URL de la photo de profil
     private int goals;
     private int assists;
     private int appearances;
@@ -30,7 +31,7 @@ public class Joueur {
     public Joueur() {
     }
 
-    public Joueur(String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
+    public Joueur(String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, String profilePicture, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
@@ -38,6 +39,7 @@ public class Joueur {
         this.numero = numero;
         this.clubId = clubId;
         this.nationalite = nationalite;
+        this.profilePicture = profilePicture;
         this.goals = goals;
         this.assists = assists;
         this.appearances = appearances;
@@ -46,7 +48,7 @@ public class Joueur {
         this.contractEndDate = contractEndDate;
     }
 
-    public Joueur(String id, String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
+    public Joueur(String id, String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, String profilePicture, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -55,6 +57,7 @@ public class Joueur {
         this.numero = numero;
         this.clubId = clubId;
         this.nationalite = nationalite;
+        this.profilePicture = profilePicture;
         this.goals = goals;
         this.assists = assists;
         this.appearances = appearances;
@@ -128,6 +131,14 @@ public class Joueur {
         this.nationalite = nationalite;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     public int getGoals() {
         return goals;
     }
@@ -187,6 +198,7 @@ public class Joueur {
                 ", numero=" + numero +
                 ", clubId='" + clubId + '\'' +
                 ", nationalite='" + nationalite + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
                 ", goals=" + goals +
                 ", assists=" + assists +
                 ", appearances=" + appearances +
