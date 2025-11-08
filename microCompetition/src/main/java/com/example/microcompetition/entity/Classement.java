@@ -9,134 +9,55 @@ public class Classement {
     @Id
     private String id;
 
-    private String idCompetition;
-    private String idClub;
-    private String nomClub;
+    // ID du club et du match venant de microservices
+    private String clubId;
 
     private int matchsJoues;
     private int victoires;
     private int nuls;
     private int defaites;
-
-    private int butsPour;
-    private int butsContre;
-    private int differenceButs;
     private int points;
 
     // --- Constructeurs ---
     public Classement() {}
 
-    public Classement(String id, String idCompetition, String idClub, String nomClub,
-                      int matchsJoues, int victoires, int nuls, int defaites,
-                      int butsPour, int butsContre, int differenceButs, int points) {
+    public Classement(String id, String clubId, String matchId, int matchsJoues,
+                      int victoires, int nuls, int defaites) {
         this.id = id;
-        this.idCompetition = idCompetition;
-        this.idClub = idClub;
-        this.nomClub = nomClub;
+        this.clubId = clubId;
         this.matchsJoues = matchsJoues;
         this.victoires = victoires;
         this.nuls = nuls;
         this.defaites = defaites;
-        this.butsPour = butsPour;
-        this.butsContre = butsContre;
-        this.differenceButs = differenceButs;
-        this.points = points;
+        calculerPoints();
     }
 
-    // --- Getters et Setters ---
-    public String getId() {
-        return id;
-    }
+    // --- Getters & Setters ---
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getClubId() { return clubId; }
+    public void setClubId(String clubId) { this.clubId = clubId; }
 
-    public String getIdCompetition() {
-        return idCompetition;
-    }
 
-    public void setIdCompetition(String idCompetition) {
-        this.idCompetition = idCompetition;
-    }
 
-    public String getIdClub() {
-        return idClub;
-    }
+    public int getMatchsJoues() { return matchsJoues; }
+    public void setMatchsJoues(int matchsJoues) { this.matchsJoues = matchsJoues; }
 
-    public void setIdClub(String idClub) {
-        this.idClub = idClub;
-    }
+    public int getVictoires() { return victoires; }
+    public void setVictoires(int victoires) { this.victoires = victoires; calculerPoints(); }
 
-    public String getNomClub() {
-        return nomClub;
-    }
+    public int getNuls() { return nuls; }
+    public void setNuls(int nuls) { this.nuls = nuls; calculerPoints(); }
 
-    public void setNomClub(String nomClub) {
-        this.nomClub = nomClub;
-    }
+    public int getDefaites() { return defaites; }
+    public void setDefaites(int defaites) { this.defaites = defaites; }
 
-    public int getMatchsJoues() {
-        return matchsJoues;
-    }
+    public int getPoints() { return points; }
+    public void setPoints(int points) { this.points = points; }
 
-    public void setMatchsJoues(int matchsJoues) {
-        this.matchsJoues = matchsJoues;
-    }
-
-    public int getVictoires() {
-        return victoires;
-    }
-
-    public void setVictoires(int victoires) {
-        this.victoires = victoires;
-    }
-
-    public int getNuls() {
-        return nuls;
-    }
-
-    public void setNuls(int nuls) {
-        this.nuls = nuls;
-    }
-
-    public int getDefaites() {
-        return defaites;
-    }
-
-    public void setDefaites(int defaites) {
-        this.defaites = defaites;
-    }
-
-    public int getButsPour() {
-        return butsPour;
-    }
-
-    public void setButsPour(int butsPour) {
-        this.butsPour = butsPour;
-    }
-
-    public int getButsContre() {
-        return butsContre;
-    }
-
-    public void setButsContre(int butsContre) {
-        this.butsContre = butsContre;
-    }
-
-    public int getDifferenceButs() {
-        return differenceButs;
-    }
-
-    public void setDifferenceButs(int differenceButs) {
-        this.differenceButs = differenceButs;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
+    // --- Calcul automatique des points ---
+    public void calculerPoints() {
+        this.points = this.victoires * 3 + this.nuls;
     }
 }

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,13 +10,19 @@
         <module name="discovery" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for Transfert Service" enabled="true">
+      <profile name="Annotation profile for microCompetition" enabled="true">
+      <profile name="Annotation profile for microUser" enabled="true">
+      <profile name="Annotation profile for microMatch" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="microBillet" />
+        <module name="microCompetition" />
+        <module name="microClub" />
+        <module name="microMatch" />
         <module name="microLocal" />
         <module name="Transfert" />
         <module name="microTransfert" />
@@ -54,14 +59,9 @@
         <module name="microMatch" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="FootballApp" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="FootballApp" options="-parameters" />
-      <module name="Transfert" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
@@ -72,7 +72,6 @@
       <module name="microLocal" options="-parameters" />
       <module name="microMatch" options="-parameters" />
       <module name="microStaff" options="-parameters" />
-      <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
     </option>
   </component>

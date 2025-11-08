@@ -14,13 +14,13 @@ public class Joueur {
     private String prenom;
     private Integer age;
 
-    // Poste: GK, DEF, MID, ATT...
-    private String poste;
+    // Position: GK, DEF, MID, ATT...
+    private String position;
 
     private Integer numero;      // dossard
-    private String club;         // club actuel
+    private String clubId;       // ID du club actuel
     private String nationalite;
-    private String position;
+    private String profilePicture; // URL de la photo de profil
     private int goals;
     private int assists;
     private int appearances;
@@ -31,25 +31,39 @@ public class Joueur {
     public Joueur() {
     }
 
-    public Joueur(String nom, String prenom, Integer age, String poste, Integer numero, String club, String nationalite) {
+    public Joueur(String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, String profilePicture, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
-        this.poste = poste;
+        this.position = position;
         this.numero = numero;
-        this.club = club;
+        this.clubId = clubId;
         this.nationalite = nationalite;
+        this.profilePicture = profilePicture;
+        this.goals = goals;
+        this.assists = assists;
+        this.appearances = appearances;
+        this.baseValue = baseValue;
+        this.estimatedValue = estimatedValue;
+        this.contractEndDate = contractEndDate;
     }
 
-    public Joueur(String id, String nom, String prenom, Integer age, String poste, Integer numero, String club, String nationalite) {
+    public Joueur(String id, String nom, String prenom, Integer age, String position, Integer numero, String clubId, String nationalite, String profilePicture, int goals, int assists, int appearances, double baseValue, double estimatedValue, LocalDate contractEndDate) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
-        this.poste = poste;
+        this.position = position;
         this.numero = numero;
-        this.club = club;
+        this.clubId = clubId;
         this.nationalite = nationalite;
+        this.profilePicture = profilePicture;
+        this.goals = goals;
+        this.assists = assists;
+        this.appearances = appearances;
+        this.baseValue = baseValue;
+        this.estimatedValue = estimatedValue;
+        this.contractEndDate = contractEndDate;
     }
 
     // Getters and Setters
@@ -85,12 +99,12 @@ public class Joueur {
         this.age = age;
     }
 
-    public String getPoste() {
-        return poste;
+    public String getPosition() {
+        return position;
     }
 
-    public void setPoste(String poste) {
-        this.poste = poste;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public Integer getNumero() {
@@ -101,12 +115,12 @@ public class Joueur {
         this.numero = numero;
     }
 
-    public String getClub() {
-        return club;
+    public String getClubId() {
+        return clubId;
     }
 
-    public void setClub(String club) {
-        this.club = club;
+    public void setClubId(String clubId) {
+        this.clubId = clubId;
     }
 
     public String getNationalite() {
@@ -117,6 +131,62 @@ public class Joueur {
         this.nationalite = nationalite;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public int getAppearances() {
+        return appearances;
+    }
+
+    public void setAppearances(int appearances) {
+        this.appearances = appearances;
+    }
+
+    public double getBaseValue() {
+        return baseValue;
+    }
+
+    public void setBaseValue(double baseValue) {
+        this.baseValue = baseValue;
+    }
+
+    public double getEstimatedValue() {
+        return estimatedValue;
+    }
+
+    public void setEstimatedValue(double estimatedValue) {
+        this.estimatedValue = estimatedValue;
+    }
+
+    public LocalDate getContractEndDate() {
+        return contractEndDate;
+    }
+
+    public void setContractEndDate(LocalDate contractEndDate) {
+        this.contractEndDate = contractEndDate;
+    }
+
     @Override
     public String toString() {
         return "Joueur{" +
@@ -124,10 +194,17 @@ public class Joueur {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", age=" + age +
-                ", poste='" + poste + '\'' +
+                ", position='" + position + '\'' +
                 ", numero=" + numero +
-                ", club='" + club + '\'' +
+                ", clubId='" + clubId + '\'' +
                 ", nationalite='" + nationalite + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", goals=" + goals +
+                ", assists=" + assists +
+                ", appearances=" + appearances +
+                ", baseValue=" + baseValue +
+                ", estimatedValue=" + estimatedValue +
+                ", contractEndDate=" + contractEndDate +
                 '}';
     }
 }
