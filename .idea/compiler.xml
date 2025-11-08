@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Transfert" />
+        <module name="config-server" />
       </profile>
       <profile name="Annotation profile for microMatch" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -19,6 +20,15 @@
         <module name="microTransfert" />
         <module name="microCompetition" />
         <module name="microMatch" />
+      </profile>
+      <profile name="Annotation profile for microClub" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
+        </processorPath>
+        <module name="microClub" />
       </profile>
     </annotationProcessing>
   </component>
