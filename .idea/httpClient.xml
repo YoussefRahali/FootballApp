@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;f8710121244ae95f0fee139a7b68d61f2683bbb7&quot; value=&quot;###&amp;#10;POST http://localhost:8600/matches&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;id&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;idCompetition&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;idClubDomicile&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;idClubExterieur&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;butsDomicile&amp;quot;: 0,&amp;#10;  &amp;quot;butsExterieur&amp;quot;: 0,&amp;#10;  &amp;quot;dateMatch&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;statut&amp;quot;: &amp;quot;PROGRAMMÉ&amp;quot;,&amp;#10;  &amp;quot;vainqueur&amp;quot;: &amp;quot;DOMICILE&amp;quot;,&amp;#10;  &amp;quot;stade&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;domicile&amp;quot;: false,&amp;#10;  &amp;quot;tour&amp;quot;: &amp;quot;GROUPES&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;016cde71fe6389bc190387e756493d85794e201c&quot; value=&quot;###&amp;#10;GET http://localhost:8300/classements/{{id}}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>

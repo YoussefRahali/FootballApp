@@ -1,49 +1,39 @@
 package com.example.micromatch.entity;
 
-import com.example.micromatch.enums.StatutMatch;
-import com.example.micromatch.enums.TourMatch;
-import com.example.micromatch.enums.VainqueurMatch;
+import com.example.micromatch.enums.MatchStatus;
+import com.example.micromatch.enums.TunisianReferee;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "matches")
 public class Match {
 
     @Id
     private String id;
+    private String team1Id;
+    private String team2Id;
+    private LocalDateTime date;
+    private MatchStatus status;
+    private int scoreTeam1;
+    private int scoreTeam2;
+    private String phase;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private long duration;
+    private List<String> events = new ArrayList<>();
+    private TunisianReferee referee;
 
-    private String idCompetition;
-    private String idClubDomicile;
-    private String idClubExterieur;
-
-    private int butsDomicile;
-    private int butsExterieur;
-    private LocalDate dateMatch;
-
-    @Field(targetType = FieldType.STRING)
-    private StatutMatch statut;
-
-    @Field(targetType = FieldType.STRING)
-    private VainqueurMatch vainqueur;
-
-    private String stade;
-    private boolean domicile;
-
-    @Field(targetType = FieldType.STRING)
-    private TourMatch tour;
-
-    // --- Constructeurs ---
     public Match() {
     }
 
     public Match(String id, String idCompetition, String idClubDomicile, String idClubExterieur,
-                 int butsDomicile, int butsExterieur, LocalDate dateMatch,
-                 StatutMatch statut, VainqueurMatch vainqueur,
-                 String stade, boolean domicile, TourMatch tour) {
+        int butsDomicile, int butsExterieur, LocalDate dateMatch,
+        StatutMatch statut, VainqueurMatch vainqueur,
+        String stade, boolean domicile, TourMatch tour) {
         this.id = id;
         this.idCompetition = idCompetition;
         this.idClubDomicile = idClubDomicile;
@@ -67,90 +57,131 @@ public class Match {
         this.id = id;
     }
 
-    public String getIdCompetition() {
-        return idCompetition;
+    public String getTeam1Id() {
+        return team1Id;
     }
 
-    public void setIdCompetition(String idCompetition) {
-        this.idCompetition = idCompetition;
+    public void setTeam1Id(String team1Id) {
+        this.team1Id = team1Id;
     }
 
-    public String getIdClubDomicile() {
-        return idClubDomicile;
+    public String getTeam2Id() {
+        return team2Id;
     }
 
-    public void setIdClubDomicile(String idClubDomicile) {
-        this.idClubDomicile = idClubDomicile;
+    public void setTeam2Id(String team2Id) {
+        this.team2Id = team2Id;
     }
 
-    public String getIdClubExterieur() {
-        return idClubExterieur;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setIdClubExterieur(String idClubExterieur) {
-        this.idClubExterieur = idClubExterieur;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
-    public int getButsDomicile() {
-        return butsDomicile;
+    public MatchStatus getStatus() {
+        return status;
     }
 
-    public void setButsDomicile(int butsDomicile) {
-        this.butsDomicile = butsDomicile;
+    public void setStatus(MatchStatus status) {
+        this.status = status;
     }
 
-    public int getButsExterieur() {
-        return butsExterieur;
+    public int getScoreTeam1() {
+        return scoreTeam1;
     }
 
-    public void setButsExterieur(int butsExterieur) {
-        this.butsExterieur = butsExterieur;
+    public void setScoreTeam1(int scoreTeam1) {
+        this.scoreTeam1 = scoreTeam1;
     }
 
-    public LocalDate getDateMatch() {
-        return dateMatch;
+    public int getScoreTeam2() {
+        return scoreTeam2;
     }
 
-    public void setDateMatch(LocalDate dateMatch) {
-        this.dateMatch = dateMatch;
+    public void setScoreTeam2(int scoreTeam2) {
+        this.scoreTeam2 = scoreTeam2;
     }
 
-    public StatutMatch getStatut() {
-        return statut;
+    public String getPhase() {
+        return phase;
     }
 
-    public void setStatut(StatutMatch statut) {
-        this.statut = statut;
+    public void setPhase(String phase) {
+        this.phase = phase;
     }
 
-    public VainqueurMatch getVainqueur() {
-        return vainqueur;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setVainqueur(VainqueurMatch vainqueur) {
-        this.vainqueur = vainqueur;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
-    public String getStade() {
-        return stade;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    public void setStade(String stade) {
-        this.stade = stade;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
-    public boolean isDomicile() {
-        return domicile;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setDomicile(boolean domicile) {
-        this.domicile = domicile;
-    }
-    public TourMatch getTour() {
-        return tour;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
-    public void setTour(TourMatch tour) {
-        this.tour = tour;
+    public List<String> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<String> events) {
+        this.events = events;
+    }
+
+    public TunisianReferee getReferee() {
+        return referee;
+    }
+
+    public void setReferee(TunisianReferee referee) {
+        this.referee = referee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return scoreTeam1 == match.scoreTeam1 && scoreTeam2 == match.scoreTeam2 && duration == match.duration && Objects.equals(id, match.id) && Objects.equals(team1Id, match.team1Id) && Objects.equals(team2Id, match.team2Id) && Objects.equals(date, match.date) && status == match.status && Objects.equals(phase, match.phase) && Objects.equals(startTime, match.startTime) && Objects.equals(endTime, match.endTime) && Objects.equals(events, match.events) && referee == match.referee;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, team1Id, team2Id, date, status, scoreTeam1, scoreTeam2, phase, startTime, endTime, duration, events, referee);
+    }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "id='" + id + '\'' +
+                ", team1Id='" + team1Id + '\'' +
+                ", team2Id='" + team2Id + '\'' +
+                ", date=" + date +
+                ", status=" + status +
+                ", scoreTeam1=" + scoreTeam1 +
+                ", scoreTeam2=" + scoreTeam2 +
+                ", phase='" + phase + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", duration=" + duration +
+                ", events=" + events +
+                ", referee=" + referee +
+                '}';
     }
 }
