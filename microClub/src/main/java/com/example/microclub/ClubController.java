@@ -74,4 +74,9 @@ public class ClubController {
     public int countPlayersByClub(@PathVariable String clubName) {
         return clubService.countPlayersByClubName(clubName);
     }
+
+    @GetMapping("/{clubName}/formation")
+    public FormationDTO getSuggestedFormation(@PathVariable String clubName) {
+        return clubService.getSuggestedFormation(clubName);
+    }
 }

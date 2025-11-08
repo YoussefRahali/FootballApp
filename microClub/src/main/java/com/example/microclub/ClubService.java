@@ -77,4 +77,53 @@ public class ClubService {
     public int countPlayersByClubName(String clubName) {
         return getPlayersByClubName(clubName).size();
     }
+
+    // Advanced: Generate suggested formation for a club
+    public FormationDTO getSuggestedFormation(String clubName) {
+        List<Joueur> allPlayers = getPlayersByClubName(clubName);
+
+        // Séparer les joueurs par position
+        List<Joueur> goalkeepers = allPlayers.stream()
+                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("GK"))
+                .limit(1)
+                .toList();
+
+        List<Joueur> defenders = allPlayers.stream()
+                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("DEF"))
+                .limit(4)
+                .toList();
+
+        List<Joueur> midfielders = allPlayers.stream()
+                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("MID"))
+                .limit(3)
+                .toList();
+
+        List<Joueur> attackers = allPlayers.stream()
+                .filter(j -> j.getPoste() != null && j.getPoste().equalsIgnoreCase("ATT"))
+                .limit(3)
+                .toList();
+
+        // Les joueurs restants deviennent remplaçants
+        List<Joueur> starters = new java.util.ArrayList<>();
+        starters.addAll(goalkeepers);
+        starters.addAll(defenders);
+        starters.addAll(midfielders);
+        starters.addAll(attackers);
+
+        List<Joueur> substitutes = allPlayers.stream()
+                .filter(j -> !starters.contains(j))
+                .toList();
+
+        // Déterminer le nom de la formation
+        String formationName = String.format("%d-%d-%d",
+                defenders.size(),
+                midfielders.size(),
+                attackers.size());
+
+        String description = String.format("Formation tactique avec %d défenseurs, %d milieux et %d attaquants",
+                defenders.size(), midfielders.size(), attackers.size());
+
+        return new FormationDTO(formationName, description, goalkeepers, defenders,
+                               midfielders, attackers, substitutes);
+    }
 }
