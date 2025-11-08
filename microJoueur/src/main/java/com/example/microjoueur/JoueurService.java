@@ -25,6 +25,13 @@ public class JoueurService {
     }
 
     public Joueur create(Joueur j) {
+        // Valider que le club existe si un clubId est fourni
+        if (j.getClubId() != null && !j.getClubId().isEmpty()) {
+            Optional<Club> club = clubClient.getClubById(j.getClubId());
+            if (club.isEmpty()) {
+                throw new IllegalArgumentException("Club with ID " + j.getClubId() + " does not exist");
+            }
+        }
         return repository.save(j);
     }
 
@@ -33,13 +40,21 @@ public class JoueurService {
     }
 
     public Joueur update(String id, Joueur payload) {
+        // Valider que le club existe si un clubId est fourni
+        if (payload.getClubId() != null && !payload.getClubId().isEmpty()) {
+            Optional<Club> club = clubClient.getClubById(payload.getClubId());
+            if (club.isEmpty()) {
+                throw new IllegalArgumentException("Club with ID " + payload.getClubId() + " does not exist");
+            }
+        }
+
         return repository.findById(id).map(j -> {
             j.setNom(payload.getNom());
             j.setPrenom(payload.getPrenom());
             j.setAge(payload.getAge());
             j.setPosition(payload.getPosition());
             j.setNumero(payload.getNumero());
-            j.setClub(payload.getClub());
+            j.setClubId(payload.getClubId());
             j.setNationalite(payload.getNationalite());
             j.setGoals(payload.getGoals());
             j.setAssists(payload.getAssists());
