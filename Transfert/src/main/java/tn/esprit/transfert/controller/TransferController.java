@@ -21,6 +21,27 @@ public class TransferController {
 
     private final TransferService transferService;
 
+    // -------------------- CLIENT INFO --------------------
+
+    @GetMapping("/clubs")
+    public List<Club> getAllClubs() {
+        return transferService.getAllClubs();
+    }
+
+    @GetMapping("/clubs/{id}")
+    public Optional<Club> getClubById(@PathVariable String id) {
+        return transferService.getClubById(id);
+    }
+
+    @GetMapping("/joueurs/{id}")
+    public ResponseEntity<Joueur> getJoueurs(@PathVariable String id) {
+        return transferService.one(id);
+    }
+    @GetMapping("/joueurs")
+    public List<Joueur> getAllJoueurs() {
+        return transferService.all ();
+    }
+
     // -------------------- TRANSFERS --------------------
 
     @GetMapping
@@ -83,7 +104,7 @@ public class TransferController {
 
     @GetMapping("/offer")
     public ResponseEntity<?> getOffer() {
-        return (ResponseEntity<?>) transferService.getOffer ();
+        return (ResponseEntity<?>) transferService.getAllClubs ();
     }
 
 
@@ -121,25 +142,6 @@ public class TransferController {
         return ResponseEntity.noContent().build();
     }
 
-    // -------------------- CLIENT INFO --------------------
 
-    @GetMapping("/clubs")
-    public List<Club> getAllClubs() {
-        return transferService.getAllClubs();
-    }
-
-    @GetMapping("/clubs/{id}")
-    public Optional<Club> getClubById(@PathVariable String id) {
-        return transferService.getClubById(id);
-    }
-
-    @GetMapping("/joueurs/{id}")
-    public ResponseEntity<Joueur> getJoueurs(@PathVariable String id) {
-        return transferService.one(id);
-    }
-    @GetMapping("/joueurs")
-    public List<Joueur> getAllJoueurs() {
-        return transferService.all ();
-    }
 
 }
