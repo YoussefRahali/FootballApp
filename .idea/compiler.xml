@@ -8,18 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Transfert" />
         <module name="config-server" />
-      </profile>
-      <profile name="Annotation profile for microMatch" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="microBillet" />
-        <module name="microTransfert" />
-        <module name="microCompetition" />
-        <module name="microMatch" />
+        <module name="discovery" />
+        <module name="gateway" />
       </profile>
       <profile name="Annotation profile for microClub" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -29,6 +19,24 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
         <module name="microClub" />
+      </profile>
+      <profile name="Annotation profile for microUser" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="microMatch (1)" />
+        <module name="microBillet" />
+        <module name="microMatch (2)" />
+        <module name="microCompetition" />
+        <module name="microMatch" />
+        <module name="microLocal" />
+        <module name="microTransfert" />
+        <module name="microUser" />
+        <module name="microStaff" />
+        <module name="microJoueur" />
       </profile>
     </annotationProcessing>
   </component>
@@ -44,6 +52,8 @@
       <module name="microJoueur" options="-parameters" />
       <module name="microLocal" options="-parameters" />
       <module name="microMatch" options="-parameters" />
+      <module name="microMatch (1)" options="-parameters" />
+      <module name="microMatch (2)" options="-parameters" />
       <module name="microStaff" options="-parameters" />
       <module name="microTransfert" options="-parameters" />
       <module name="microUser" options="-parameters" />
