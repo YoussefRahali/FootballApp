@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -134,6 +135,25 @@ public class LocalService implements IServiceLocal {
             repository.save(local);
         }
     }
+
+    @Autowired
+    private MatchFeignClient matchFeignClient;
+
+    @Autowired
+    private ClubFeign clubFeign;
+
+    public MatchDTO getMatchById(String id){
+        return matchFeignClient.getMatchById(id);
+    }
+
+    public List<MatchDTO>getAllMatches(){
+        return matchFeignClient.getAllMatches();
+    }
+
+    public Optional<ClubDto> getClubById(String id){
+        return clubFeign.getClubById(id);
+    }
+
 
 }
 
