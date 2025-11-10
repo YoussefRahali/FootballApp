@@ -15,14 +15,13 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("transfers")
+@RequestMapping("/transfers")
 @RequiredArgsConstructor
 public class TransferController {
 
     private final TransferService transferService;
 
-    // -------------------- CLIENT INFO --------------------
-
+    // -------------------- CLIENTS --------------------
     @GetMapping("/clubs")
     public List<Club> getAllClubs() {
         return transferService.getAllClubs();
@@ -33,17 +32,17 @@ public class TransferController {
         return transferService.getClubById(id);
     }
 
-    @GetMapping("/joueurs/{id}")
-    public ResponseEntity<Joueur> getJoueurs(@PathVariable String id) {
-        return transferService.one(id);
-    }
     @GetMapping("/joueurs")
     public List<Joueur> getAllJoueurs() {
-        return transferService.all ();
+        return transferService.getAllJoueurs();
+    }
+
+    @GetMapping("/joueurs/{id}")
+    public ResponseEntity<Joueur> getJoueurById(@PathVariable String id) {
+        return transferService.getJoueurById(id);
     }
 
     // -------------------- TRANSFERS --------------------
-
     @GetMapping
     public ResponseEntity<List<Transfer>> getAllTransfers() {
         return ResponseEntity.ok(transferService.getAllTransfers());
@@ -80,35 +79,14 @@ public class TransferController {
     }
 
     // -------------------- OFFERS --------------------
-
     @GetMapping("/offers")
     public ResponseEntity<?> getAllOffers() {
-        try {
-            List<Offer> offers = transferService.getAllOffers();
-
-            if (offers.isEmpty()) {
-                // Retourne 204 No Content si aucune offre n'existe
-                return ResponseEntity.noContent().build();
-            }
-
-            // Retourne 200 OK avec la liste d'offres
-            return ResponseEntity.ok(offers);
-
-        } catch (Exception e) {
-            // Gestion des erreurs serveur
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Impossible de récupérer les offres : " + e.getMessage());
+        List<Offer> offers = transferService.getAllOffers();
+        if (offers.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(offers);
     }
-
-
-    @GetMapping("/offer")
-    public ResponseEntity<?> getOffer() {
-        return (ResponseEntity<?>) transferService.getAllClubs ();
-    }
-
-
-
 
     @GetMapping("/offers/{id}")
     public ResponseEntity<Offer> getOfferById(@PathVariable String id) {
@@ -141,7 +119,4 @@ public class TransferController {
         transferService.deleteOffer(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
