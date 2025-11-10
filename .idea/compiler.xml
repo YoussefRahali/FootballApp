@@ -6,7 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Transfert" />
         <module name="config-server" />
         <module name="discovery" />
         <module name="gateway" />
@@ -21,6 +20,17 @@
         <module name="microClub" />
       </profile>
       <profile name="Annotation profile for microLocal" enabled="true">
+      <profile name="Annotation profile for microCompetition" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="microCompetition" />
+      </profile>
+      <profile name="Annotation profile for microUser" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -30,15 +40,25 @@
         <module name="microBillet" />
         <module name="microMatch (1)" />
         <module name="microMatch (2)" />
-        <module name="microCompetition" />
         <module name="microMatch" />
         <module name="microLocal" />
         <module name="microTransfert" />
         <module name="microUser" />
-        <module name="microStaff" />
         <module name="microJoueur" />
       </profile>
+      <profile name="Annotation profile for Transfert" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar" />
+        </processorPath>
+        <module name="Transfert" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="microStaff" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
