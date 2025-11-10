@@ -1,19 +1,16 @@
 package tn.esprit.transfert.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.stereotype.Service;
+import feign.FeignException;
 import tn.esprit.transfert.client.Club;
 import tn.esprit.transfert.client.ClubClient;
 import tn.esprit.transfert.client.Joueur;
 import tn.esprit.transfert.client.JoueurClient;
-import tn.esprit.transfert.entity.Transfer;
 import tn.esprit.transfert.entity.Offer;
-import tn.esprit.transfert.repository.TransferRepository;
+import tn.esprit.transfert.entity.Transfer;
 import tn.esprit.transfert.repository.OfferRepository;
-
-import feign.FeignException;
+import tn.esprit.transfert.repository.TransferRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +32,8 @@ public class TransferService {
         this.clubClient = clubClient;
         this.joueurClient = joueurClient;
     }
+
+    // ------------------- CLIENTS -------------------
     public List<Club> getAllClubs() {
         return clubClient.getAllClubs();
     }
@@ -43,15 +42,15 @@ public class TransferService {
         return clubClient.getClubById(id);
     }
 
-    public List<Joueur> all() {
+    public List<Joueur> getAllJoueurs() {
         return joueurClient.all();
     }
 
-    public ResponseEntity<Joueur> one(@PathVariable String id) {
+    public ResponseEntity<Joueur> getJoueurById(String id) {
         return joueurClient.one(id);
     }
 
-    // ---------------- TRANSFERS ----------------
+    // ------------------- TRANSFERS -------------------
     public List<Transfer> getAllTransfers() {
         return transferRepository.findAll();
     }
@@ -62,24 +61,17 @@ public class TransferService {
 
     public Transfer createTransfer(Transfer transfer) {
         Joueur joueur = getJoueurSafe(transfer.getJoueurId());
-        if (joueur == null) {
-            throw new RuntimeException("Joueur inexistant");
-        }
-
         Club fromClub = getClubSafe(transfer.getFromClubId())
                 .orElseThrow(() -> new RuntimeException("Club source inexistant"));
         Club toClub = getClubSafe(transfer.getToClubId())
                 .orElseThrow(() -> new RuntimeException("Club destination inexistant"));
 
-        transfer.setJoueurId ( joueur.getNom() + " " + joueur.getPrenom() );
-        transfer.setFromClubId ( fromClub.getName() );
-        transfer.setToClubId ( toClub.getName() );
+        transfer.setJoueurId (joueur.getNom() + " " + joueur.getPrenom());
+        transfer.setFromClubId (fromClub.getName());
+        transfer.setToClubId (toClub.getName());
 
         return transferRepository.save(transfer);
     }
-
-
-
 
     public Optional<Transfer> updateTransfer(String id, Transfer details) {
         return transferRepository.findById(id)
@@ -97,7 +89,7 @@ public class TransferService {
         transferRepository.deleteById(id);
     }
 
-    // ---------------- OFFERS ----------------
+    // ------------------- OFFERS -------------------
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
     }
@@ -122,16 +114,7 @@ public class TransferService {
         offerRepository.deleteById(id);
     }
 
-    // ---------------- CLIENT INFO ----------------
-    public Optional<Club> getClubInfo(String clubId) {
-        return getClubSafe(clubId);
-    }
-
-    public Joueur getJoueurInfo(String joueurId) {
-        return getJoueurSafe(joueurId);
-    }
-
-    // ---------------- UTILITAIRES ----------------
+    // ------------------- UTILITAIRES -------------------
     private Joueur getJoueurSafe(String joueurId) {
         try {
             Joueur joueur = joueurClient.one(joueurId).getBody();
@@ -142,7 +125,7 @@ public class TransferService {
         } catch (FeignException.NotFound e) {
             throw new RuntimeException("Joueur avec ID " + joueurId + " non trouvé");
         } catch (Exception e) {
-            throw new RuntimeException("Impossible de contacter le microservice Joueur : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la récupération du joueur : " + e.getMessage());
         }
     }
 
@@ -152,9 +135,7 @@ public class TransferService {
         } catch (FeignException.NotFound e) {
             throw new RuntimeException("Club avec ID " + clubId + " non trouvé");
         } catch (Exception e) {
-            throw new RuntimeException("Impossible de contacter le microservice Club : " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la récupération du club : " + e.getMessage());
         }
     }
-
-
 }
