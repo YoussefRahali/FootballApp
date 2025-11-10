@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -28,6 +29,8 @@ import java.util.UUID;
 public class LocalRestApi {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final LocalService service;
+
+
     @Autowired  // Constructor injection
     public LocalRestApi(LocalService service) {
         this.service = service;
@@ -95,5 +98,18 @@ public class LocalRestApi {
     @DeleteMapping("/{id}/image")
     public void deleteImage(@PathVariable String id) {
         service.deleteImage(id);
+    }
+
+    @GetMapping ("/matches/{id}")
+    public MatchDTO getMatchById(@PathVariable String id) {
+        return service.getMatchById(id);
+    }
+
+    @GetMapping("/matches")
+    public List<MatchDTO> getAllMatches(){return service.getAllMatches();}
+
+    @GetMapping ("/clubs/{id}")
+    public Optional<ClubDto> getClubById(@PathVariable String id) {
+        return service.getClubById(id);
     }
 }
