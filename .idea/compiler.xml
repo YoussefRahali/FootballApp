@@ -19,6 +19,7 @@
         </processorPath>
         <module name="microClub" />
       </profile>
+      <profile name="Annotation profile for microLocal" enabled="true">
       <profile name="Annotation profile for microCompetition" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
