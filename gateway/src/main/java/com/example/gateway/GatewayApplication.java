@@ -19,33 +19,28 @@ public class GatewayApplication {
 	public RouteLocator getwayRoutes(RouteLocatorBuilder builder)
 	{
 		return builder.routes()
-				.route("Billet",r->r.path("/billets/**")
-						.filters(f -> f.stripPrefix(1))
+				.route("Billet",r->r.path("/api/billets/**")
 						.uri("lb://microBillet"))
 				.route("Club",r->r.path("/clubs/**")
-						.filters(f -> f.stripPrefix(1))
 						.uri("lb://microClub"))
 				.route("Competition",r->r.path("/competitions/**")
-						.filters(f -> f.stripPrefix(1))
 						.uri("lb://microCompetition"))
 				.route("Joueur",r->r.path("/joueurs/**")
-						.filters(f -> f.stripPrefix(1))
 						.uri("lb://microJoueur"))
-				.route("microLocal", r -> r.path("/microLocal/**")
-						.filters(f -> f.stripPrefix(1))   // /microLocal/foo -> /foo
+				.route("microLocal", r -> r.path("/api/locals/**")
 						.uri("lb://microLocal"))
-				.route("Match",r->r.path("/matchs/**")
-						.filters(f -> f.stripPrefix(1))
+				.route("Match",r->r.path("/matches/**")
 						.uri("lb://microMatch"))
 				.route("Staff",r->r.path("/staffs/**")
-						.filters(f -> f.stripPrefix(1))
 						.uri("lb://microStaff"))
-				.route("Transfert",r->r.path("/transferts/**")
-						.filters(f -> f.stripPrefix(1))
-						.uri("lb://microTransfert"))
+				.route("Transfert",r->r.path("/transfers/**")
+						.uri("lb://Transfert"))
 				.route("User",r->r.path("/users/**")
-						.filters(f -> f.stripPrefix(1))
 						.uri("lb://microUser"))
+				.route("Staff", r -> r.path("/staff/**")
+						.uri("lb://microStaff"))
+
 				.build();
+
 	}
 }
