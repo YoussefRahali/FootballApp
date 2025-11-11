@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/joueurs")
-@CrossOrigin
+//@CrossOrigin
 public class JoueurRestAPI {
     private final JoueurService service;
 
@@ -97,7 +97,7 @@ public class JoueurRestAPI {
      * - /joueurs/sort/goals?asc=true (ordre croissant)
      * - /joueurs/sort/goals?asc=false (ordre décroissant)
      *
-     * @param ascending true pour ordre croissant, false pour décroissant (défaut: false)
+     * @param// ascending true pour ordre croissant, false pour décroissant (défaut: false)
      * @return Liste des joueurs triés par nombre de buts
      */
     @GetMapping("/sort/goals")
@@ -112,7 +112,7 @@ public class JoueurRestAPI {
      * - /joueurs/sort/assists?asc=true (ordre croissant)
      * - /joueurs/sort/assists?asc=false (ordre décroissant)
      *
-     * @param ascending true pour ordre croissant, false pour décroissant (défaut: false)
+     * @param //ascending true pour ordre croissant, false pour décroissant (défaut: false)
      * @return Liste des joueurs triés par nombre d'assistances
      */
     @GetMapping("/sort/assists")

@@ -32,9 +32,15 @@ public class SecurityConfig {
     public SecurityFilterChain protectedChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                //.authorizeHttpRequests(auth -> auth
+                        //.requestMatchers( "/actuator/**").permitAll()
+                        //.anyRequest().authenticated()
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/**").permitAll()
+                )
+                //.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                        .oauth2ResourceServer(oauth2 -> oauth2.disable());
         return http.build();
     }
 }

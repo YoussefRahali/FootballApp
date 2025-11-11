@@ -9,7 +9,7 @@ import com.example.microcompetition.service.ClassementService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/classements")
 public class ClassementController {

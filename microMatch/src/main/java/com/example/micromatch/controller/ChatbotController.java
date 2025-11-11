@@ -4,7 +4,7 @@ import com.example.micromatch.service.ChatbotService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/chatbot")
 public class ChatbotController {
 

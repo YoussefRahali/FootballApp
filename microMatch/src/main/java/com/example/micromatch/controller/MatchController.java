@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/matches")
 public class MatchController {
 

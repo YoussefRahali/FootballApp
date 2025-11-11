@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/locals")
-
+//@CrossOrigin
 public class LocalRestApi {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final LocalService service;
