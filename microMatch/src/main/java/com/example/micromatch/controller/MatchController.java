@@ -30,6 +30,18 @@ public class MatchController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Match createMatch(@RequestBody MatchDTO matchDTO) {
+        if (matchDTO.getTeam1Id() == null || matchDTO.getTeam1Id().trim().isEmpty()) {
+            throw new IllegalArgumentException("Team1 ID is required");
+        }
+        if (matchDTO.getTeam2Id() == null || matchDTO.getTeam2Id().trim().isEmpty()) {
+            throw new IllegalArgumentException("Team2 ID is required");
+        }
+        if (matchDTO.getDate() == null) {
+            throw new IllegalArgumentException("Date is required");
+        }
+        if (matchDTO.getReferee() == null) {
+            throw new IllegalArgumentException("Referee is required");
+        }
         return matchService.createMatch(matchDTO);
     }
     @GetMapping
@@ -123,4 +135,11 @@ public class MatchController {
     public Local getLocalById(@PathVariable String id) {
         return matchService.getById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMatch(@PathVariable String id) {
+        matchService.deleteMatch(id);
+    }
+
 }

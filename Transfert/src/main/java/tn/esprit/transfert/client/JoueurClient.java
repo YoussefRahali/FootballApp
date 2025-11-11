@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "microJoueur")
+@FeignClient(name = "microJoueur", url = "http://localhost:8400")
 public interface JoueurClient {
 
     @GetMapping("/joueurs")
-    List<Joueur> all() ;
+    List<Joueur> all();
 
     @GetMapping("/joueurs/{id}")
-    ResponseEntity<Joueur> one(@PathVariable String id) ;
+    ResponseEntity<Joueur> one(@PathVariable String id);
 }
