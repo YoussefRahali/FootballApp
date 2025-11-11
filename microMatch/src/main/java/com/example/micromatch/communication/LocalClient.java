@@ -10,10 +10,10 @@ import java.util.Optional;
 @FeignClient(name = "microLocal")
 public interface LocalClient {
 
-    @GetMapping("/locals")
+    @GetMapping("/api/locals")
     List<Local> findAll();
 
-    @GetMapping("/locals/{id}")
+    @GetMapping("/api/locals/{id}")
     Optional<Local> findById(@PathVariable String id);
 }
 

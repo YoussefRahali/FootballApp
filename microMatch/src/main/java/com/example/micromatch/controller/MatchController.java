@@ -126,12 +126,12 @@ public class MatchController {
     }
 
 
-    @GetMapping("/locals")
+    @GetMapping("/api/locals")
     public List<Local> getAllLocals() {
         return matchService.getAll();
     }
 
-    @GetMapping("/locals/{id}")
+    @GetMapping("/api/locals/{id}")
     public Local getLocalById(@PathVariable String id) {
         return matchService.getById(id);
     }
