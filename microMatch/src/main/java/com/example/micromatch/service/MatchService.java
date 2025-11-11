@@ -64,9 +64,12 @@ public class MatchService {
         Match match = new Match();
         match.setTeam1Id(matchDTO.getTeam1Id());
         match.setTeam2Id(matchDTO.getTeam2Id());
+        match.setLocalId(matchDTO.getLocalId());
         match.setDate(matchDTO.getDate());
-        match.setStatus(MatchStatus.PROGRAMME);
+        match.setStatus(matchDTO.getStatus() != null ? matchDTO.getStatus() : MatchStatus.PROGRAMME);
         match.setReferee(matchDTO.getReferee());
+        match.setScoreTeam1(matchDTO.getScoreTeam1() != null ? matchDTO.getScoreTeam1() : 0);
+        match.setScoreTeam2(matchDTO.getScoreTeam2() != null ? matchDTO.getScoreTeam2() : 0);
         return matchRepository.save(match);
     }
     public List<Match> getAllMatches() {
@@ -82,9 +85,16 @@ public class MatchService {
         Match match = getMatchById(id);
         match.setTeam1Id(matchDTO.getTeam1Id());
         match.setTeam2Id(matchDTO.getTeam2Id());
+        match.setLocalId(matchDTO.getLocalId());
         match.setDate(matchDTO.getDate());
         match.setStatus(matchDTO.getStatus());
         match.setReferee(matchDTO.getReferee());
+        if (matchDTO.getScoreTeam1() != null) {
+            match.setScoreTeam1(matchDTO.getScoreTeam1());
+        }
+        if (matchDTO.getScoreTeam2() != null) {
+            match.setScoreTeam2(matchDTO.getScoreTeam2());
+        }
         return matchRepository.save(match);
     }
     public Match startMatch(String matchId) {
@@ -168,6 +178,11 @@ public class MatchService {
     public Local getById(String id) {
         return localClient.findById(id)
                 .orElseThrow(() -> new RuntimeException("Local not found: " + id));
+    }
+
+    public void deleteMatch(String id) {
+        Match match = getMatchById(id);
+        matchRepository.delete(match);
     }
 
 }

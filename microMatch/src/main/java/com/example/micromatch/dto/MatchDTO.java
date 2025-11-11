@@ -7,9 +7,12 @@ import com.example.micromatch.enums.TunisianReferee;
 public class MatchDTO {
     private String team1Id;
     private String team2Id;
+    private String localId;
     private LocalDateTime date;
     private MatchStatus status;
     private TunisianReferee referee;
+    private Integer scoreTeam1;
+    private Integer scoreTeam2;
 
     public MatchDTO() {}
 
@@ -27,4 +30,13 @@ public class MatchDTO {
 
     public TunisianReferee getReferee() { return referee; }
     public void setReferee(TunisianReferee referee) { this.referee = referee; }
+
+    public String getLocalId() { return localId; }
+    public void setLocalId(String localId) { this.localId = localId; }
+
+    public Integer getScoreTeam1() { return scoreTeam1; }
+    public void setScoreTeam1(Integer scoreTeam1) { this.scoreTeam1 = scoreTeam1; }
+
+    public Integer getScoreTeam2() { return scoreTeam2; }
+    public void setScoreTeam2(Integer scoreTeam2) { this.scoreTeam2 = scoreTeam2; }
 }

@@ -17,6 +17,7 @@ public class Match {
     private String id;
     private String team1Id;
     private String team2Id;
+    private String localId;
     private LocalDateTime date;
     private MatchStatus status;
     private int scoreTeam1;
@@ -78,6 +79,9 @@ public class Match {
     public TunisianReferee getReferee() { return referee; }
     public void setReferee(TunisianReferee referee) { this.referee = referee; }
 
+    public String getLocalId() { return localId; }
+    public void setLocalId(String localId) { this.localId = localId; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +92,7 @@ public class Match {
                 && Objects.equals(id, match.id)
                 && Objects.equals(team1Id, match.team1Id)
                 && Objects.equals(team2Id, match.team2Id)
+                && Objects.equals(localId, match.localId)
                 && Objects.equals(date, match.date)
                 && status == match.status
                 && Objects.equals(phase, match.phase)
@@ -99,7 +104,7 @@ public class Match {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, team1Id, team2Id, date, status, scoreTeam1, scoreTeam2, phase, startTime, endTime, duration, events, referee);
+        return Objects.hash(id, team1Id, team2Id, localId, date, status, scoreTeam1, scoreTeam2, phase, startTime, endTime, duration, events, referee);
     }
 
     @Override
@@ -108,6 +113,7 @@ public class Match {
                 "id='" + id + '\'' +
                 ", team1Id='" + team1Id + '\'' +
                 ", team2Id='" + team2Id + '\'' +
+                ", localId='" + localId + '\'' +
                 ", date=" + date +
                 ", status=" + status +
                 ", scoreTeam1=" + scoreTeam1 +

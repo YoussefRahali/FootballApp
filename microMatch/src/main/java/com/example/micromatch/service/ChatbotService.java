@@ -1,11 +1,16 @@
 package com.example.micromatch.service;
 
+import com.example.micromatch.communication.Club;
+import com.example.micromatch.communication.ClubClient;
 import com.example.micromatch.entity.Match;
 import com.example.micromatch.enums.MatchStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,9 +19,52 @@ import java.util.stream.Collectors;
 @Service
 public class ChatbotService {
     private final MatchService matchService;
+    
+    @Autowired
+    private ClubClient clubClient;
+    
+    // Cache pour les noms des clubs
+    private Map<String, String> clubNamesCache = new HashMap<>();
 
     public ChatbotService(MatchService matchService) {
         this.matchService = matchService;
+    }
+    
+    /**
+     * Récupère le nom d'un club par son ID
+     */
+    private String getClubName(String clubId) {
+        if (clubId == null || clubId.isEmpty()) {
+            return "Unknown Team";
+        }
+        
+        // Vérifier le cache
+        if (clubNamesCache.containsKey(clubId)) {
+            return clubNamesCache.get(clubId);
+        }
+        
+        try {
+            Optional<Club> club = clubClient.getClubById(clubId);
+            if (club.isPresent() && club.get().getName() != null) {
+                String clubName = club.get().getName();
+                clubNamesCache.put(clubId, clubName);
+                return clubName;
+            }
+        } catch (Exception e) {
+            System.err.println("Error fetching club name for ID " + clubId + ": " + e.getMessage());
+        }
+        
+        // Si on ne trouve pas le nom, retourner l'ID
+        return clubId;
+    }
+    
+    /**
+     * Récupère les noms des deux équipes d'un match
+     */
+    private String formatMatchTeams(Match match) {
+        String team1Name = getClubName(match.getTeam1Id());
+        String team2Name = getClubName(match.getTeam2Id());
+        return team1Name + " vs " + team2Name;
     }
 
     public String getResponse(String query) {
@@ -58,7 +106,7 @@ public class ChatbotService {
         }
         return "Matches for team " + teamName + " next week:\n" +
                 matches.stream()
-                        .map(match -> match.getTeam1Id() + " vs " + match.getTeam2Id() + " on " + match.getDate())
+                        .map(match -> formatMatchTeams(match) + " on " + match.getDate())
                         .collect(Collectors.joining("\n"));
     }
 
@@ -72,13 +120,13 @@ public class ChatbotService {
 
     private String getNextMatch() {
         Optional<Match> nextMatch = matchService.getNextMatch();
-        return nextMatch.map(match -> "The next match is " + match.getTeam1Id() + " vs " + match.getTeam2Id() + " on " + match.getDate())
+        return nextMatch.map(match -> "The next match is " + formatMatchTeams(match) + " on " + match.getDate())
                 .orElse("No upcoming matches found.");
     }
 
     private String getLastMatch() {
         Optional<Match> lastMatch = matchService.getLastMatch();
-        return lastMatch.map(match -> "The last match was " + match.getTeam1Id() + " vs " + match.getTeam2Id() + " with a final score of " + match.getScoreTeam1() + "-" + match.getScoreTeam2() + ".")
+        return lastMatch.map(match -> "The last match was " + formatMatchTeams(match) + " with a final score of " + match.getScoreTeam1() + "-" + match.getScoreTeam2() + ".")
                 .orElse("No finished matches found.");
     }
 
