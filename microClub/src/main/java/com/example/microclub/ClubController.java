@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
@@ -66,12 +66,12 @@ public class ClubController {
         return clubService.findByPresident(president);
     }
 
-    @GetMapping("/{clubName}/players")
+    @GetMapping("/{clubName}/joueurs")
     public List<Joueur> getPlayersByClub(@PathVariable String clubName) {
         return clubService.getPlayersByClubName(clubName);
     }
 
-    @GetMapping("/{clubName}/players/count")
+    @GetMapping("/{clubName}/joueurs/count")
     public int countPlayersByClub(@PathVariable String clubName) {
         return clubService.countPlayersByClubName(clubName);
     }

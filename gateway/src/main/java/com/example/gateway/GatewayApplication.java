@@ -25,6 +25,8 @@ public class GatewayApplication {
 						.uri("lb://microClub"))
 				.route("Competition",r->r.path("/competitions/**")
 						.uri("lb://microCompetition"))
+				.route("Competition",r->r.path("/classements/**")
+						.uri("lb://microCompetition"))
 				.route("Joueur",r->r.path("/joueurs/**")
 						.uri("lb://microJoueur"))
 				.route("microLocal", r -> r.path("/api/locals/**")
