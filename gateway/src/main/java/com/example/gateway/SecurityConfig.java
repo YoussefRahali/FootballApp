@@ -6,8 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
-import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -27,16 +26,14 @@ public class SecurityConfig {
                 .authorizeExchange(ex -> ex
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers("/eureka/**", "/actuator/**").permitAll()
+                        // Permettre l'accès public aux images des locaux
+                        .pathMatchers(HttpMethod.GET, "/locals/*/image").permitAll()
+                        // Réactiver l'authentification OAuth2 pour toutes les autres routes
                         .anyExchange().authenticated()
                 )
+                // Réactiver OAuth2 Resource Server avec JWT
                 .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
                 .build();
-    }
-
-    @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-        String jwkSetUri = "http://localhost:8085/realms/Football/protocol/openid-connect/certs";
-        return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
     }
 
     @Bean

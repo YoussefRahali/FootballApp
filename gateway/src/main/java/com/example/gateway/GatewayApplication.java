@@ -19,29 +19,26 @@ public class GatewayApplication {
 	public RouteLocator getwayRoutes(RouteLocatorBuilder builder)
 	{
 		return builder.routes()
-				.route("Billet",r->r.path("/api/billets/**")
+				.route("Billet",r->r.path("/billets/**")
 						.uri("lb://microBillet"))
 				.route("Club",r->r.path("/clubs/**")
 						.uri("lb://microClub"))
 				.route("Competition",r->r.path("/competitions/**")
 						.uri("lb://microCompetition"))
-				.route("Competition",r->r.path("/classements/**")
+				.route("Classement",r->r.path("/classements/**")
 						.uri("lb://microCompetition"))
 				.route("Joueur",r->r.path("/joueurs/**")
 						.uri("lb://microJoueur"))
-				.route("microLocal", r -> r.path("/api/locals/**")
+				.route("Local", r -> r.path("/locals/**")
 						.uri("lb://microLocal"))
 				.route("Match",r->r.path("/matches/**")
 						.uri("lb://microMatch"))
-				.route("Staff",r->r.path("/staffs/**")
+				.route("Staff",r->r.path("/staff/**")
 						.uri("lb://microStaff"))
 				.route("Transfert",r->r.path("/transfers/**")
 						.uri("lb://Transfert"))
 				.route("User",r->r.path("/users/**")
 						.uri("lb://microUser"))
-				.route("Staff", r -> r.path("/staff/**")
-						.uri("lb://microStaff"))
-
 				.build();
 
 	}

@@ -1,0 +1,324 @@
+services:
+  config-server:
+    build: ./config-server
+    image: firasmhm/msconfig:1.0
+    container_name: config-server
+    ports:
+      - "8880:8880"
+    environment:
+      SPRING_APPLICATION_NAME: config-server
+      SERVER_PORT: 8880
+      SPRING_PROFILES_ACTIVE: native
+      SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCHLOCATIONS: "classpath:/config"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery:8761/eureka"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8880/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+  mongo:
+    image: mongo:8.0
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+  discovery:
+    build: ./discovery
+    image: firasmhm/mseureka:1.0
+    container_name: discovery
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_APPLICATION_NAME: discovery
+      SERVER_PORT: 8761
+      EUREKA_CLIENT_REGISTER-WITH-EUREKA: "false"
+      EUREKA_CLIENT_FETCH-REGISTRY: "false"
+      SPRING_CLOUD_CONFIG_ENABLED: "false"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.2
+    container_name: keycloak
+    restart: unless-stopped
+    command:
+      - start-dev
+      - --http-port=8085
+      - --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - ./keycloak/realm-export:/opt/keycloak/data/import:ro
+    ports:
+      - "8085:8085"    
+  gateway:
+    build: ./gateway
+    image: firasmhm/msgateway:1.0
+    container_name: gateway
+    ports:
+      - "8222:8222"
+    environment:
+      SPRING_APPLICATION_NAME: gateway
+      SERVER_PORT: 8222
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery:8761/eureka"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://localhost:8085/realms/Football"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: "http://keycloak:8085/realms/Football/protocol/openid-connect/certs"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      microBillet:
+        condition: service_started
+      microClub:
+        condition: service_started
+      microCompetition:
+        condition: service_started
+      microJoueur:
+        condition: service_started
+      microLocal:
+        condition: service_started
+      microMatch:
+        condition: service_started
+      transfert:
+        condition: service_started
+  microBillet:
+    build: ./microBillet
+    image: firasmhm/msbillet:1.0
+    container_name: microBillet
+    ports:
+      - "8100:8100"
+    environment:
+      SPRING_APPLICATION_NAME: microBillet
+      SERVER_PORT: 8100
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/BilletDB"
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  microClub:
+    build: ./microClub
+    image: firasmhm/msclub:1.0
+    container_name: microClub
+    ports:
+      - "8200:8200"
+    environment:
+      SPRING_APPLICATION_NAME: microClub
+      SERVER_PORT: 8200
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/CLUB"
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  microCompetition:
+    build: ./microCompetition
+    image: firasmhm/mscompetition:1.0
+    container_name: microCompetition
+    ports:
+      - "8300:8300"
+    environment:
+      SPRING_APPLICATION_NAME: microCompetition
+      SERVER_PORT: 8300
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/comp"
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  microJoueur:
+    build: ./microJoueur
+    image: firasmhm/msjoueur:1.0
+    container_name: microJoueur
+    ports:
+      - "8400:8400"
+    environment:
+      SPRING_APPLICATION_NAME: microJoueur
+      SERVER_PORT: 8400
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/Joueur_db"
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  microLocal:
+    build: ./microLocal
+    image: firasmhm/mslocal:1.0
+    container_name: microLocal
+    ports:
+      - "8500:8500"
+    environment:
+      SPRING_APPLICATION_NAME: microLocal
+      SERVER_PORT: 8500
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/LocalFoot"
+      SPRING_SERVLET_MULTIPART_ENABLED: "true"
+      SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE: 10MB
+      SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE: 10MB
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  microMatch:
+    build: ./microMatch
+    image: firasmhm/msmatch:1.0
+    container_name: microMatch
+    ports:
+      - "8600:8600"
+    environment:
+      SPRING_APPLICATION_NAME: microMatch
+      SERVER_PORT: 8600
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      MONGO_URI: "mongodb://mongo:27017"
+      MONGO_DATABASE: "micromatch"
+      MONGO_USERNAME: "user"
+      MONGO_PASSWORD: "password"
+      JAVA_OPTS: "-Deureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka -Deureka.client.registerWithEureka=true -Deureka.client.fetchRegistry=true"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+
+  transfert:
+    build: ./transfert
+    image: firasmhm/transfert:1.0
+    container_name: transfert
+    ports:
+      - "8060:8080"
+    environment:
+      SPRING_APPLICATION_NAME: TRANSFERT
+      SERVER_PORT: 8080
+      SPRING_CLOUD_CONFIG_ENABLED: "true"
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8880"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery:8761/eureka"
+      EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+      EUREKA_CLIENT_FETCHREGISTRY: "true"
+      SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/transfers-db"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: "http://keycloak:8085/realms/Football"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: "http://keycloak:8085/realms/Football/protocol/openid-connect/certs"
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+  TranfertMarket:
+    build: ./TranfertMarket
+    image: firasmhm/tranfertmarket:1.0
+    container_name: TranfertMarket
+    depends_on:
+      - gateway
+    ports:
+      - "4200:80"
+    restart: unless-stopped
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: staff_user
+      POSTGRES_PASSWORD: staff_pass
+      POSTGRES_DB: staff_db
+      TZ: Africa/Tunis
+    ports:
+      - "5432:5432"  # expose vers l’hôte (optionnel)
+    volumes:
+      - postgres_data:/var/lib/postgresql     # ✅ chemin conforme PostgreSQL 18+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U staff_user -d staff_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  Staffmicro:
+    build: ./Staffmicro
+    image: firasmhm/msstaff:1.0
+    container_name: Staffmicro
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      discovery:
+        condition: service_started
+      config-server:
+        condition: service_healthy
+      gateway:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      PORT: "8891"
+
+      # Base PostgreSQL
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: staff_user
+      DB_PASS: staff_pass
+      DB_NAME: staff_db
+      DATABASE_URL: postgres://staff_user:staff_pass@postgres:5432/staff_db
+
+      # Intégrations inter-services
+      CLUB_SERVICE_URL: http://gateway:8222
+      EUREKA_HOST: discovery
+      EUREKA_PORT: "8761"
+      EUREKA_APP_NAME: microStaff
+      EUREKA_INSTANCE_HOSTNAME: Staffmicro
+      EUREKA_INSTANCE_IP: Staffmicro
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      CONFIG_SERVER_URL: http://config-server:8880
+      KEYCLOAK_ISSUER_URI: http://keycloak:8085/realms/Football
+
+    ports:
+      - "8891:8891"
+
+volumes:
+  postgres_data:

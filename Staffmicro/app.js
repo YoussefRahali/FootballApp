@@ -29,8 +29,8 @@ const { sequelize } = require('./models');
 const eurekaClient = new Eureka({
   instance: {
     app: process.env.EUREKA_APP_NAME || 'microStaff',
-    hostName: 'localhost',
-    ipAddr: '127.0.0.1',
+    hostName: process.env.EUREKA_INSTANCE_HOSTNAME || 'Staffmicro',
+    ipAddr: process.env.EUREKA_INSTANCE_IP || 'Staffmicro',
     port: { '$': Number(process.env.PORT || 8891), '@enabled': true },
     vipAddress: process.env.EUREKA_APP_NAME || 'microStaff',
     dataCenterInfo: {

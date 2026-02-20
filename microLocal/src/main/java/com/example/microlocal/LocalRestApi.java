@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/locals")
+@RequestMapping("/locals")
 //@CrossOrigin
 public class LocalRestApi {
     private final ObjectMapper objectMapper = new ObjectMapper();

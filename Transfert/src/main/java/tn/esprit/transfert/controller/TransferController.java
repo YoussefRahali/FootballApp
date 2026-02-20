@@ -1,6 +1,5 @@
 package tn.esprit.transfert.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +15,13 @@ import java.util.Optional;
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/transfers")
-@RequiredArgsConstructor
 public class TransferController {
 
     private final TransferService transferService;
+
+    public TransferController(TransferService transferService) {
+        this.transferService = transferService;
+    }
 
     // -------------------- CLIENTS --------------------
     @GetMapping("/clubs")

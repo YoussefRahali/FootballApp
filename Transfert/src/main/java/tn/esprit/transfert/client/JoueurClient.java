@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "microJoueur", url = "http://localhost:8400")
+@FeignClient(name = "microJoueur")
 public interface JoueurClient {
 
     @GetMapping("/joueurs")
